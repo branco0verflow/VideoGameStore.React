@@ -1,0 +1,17 @@
+.contenedor-cargando {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99;
+  }
+  
+  .spinner {
+    width: 200px;
+    height: 200px;
+  }
+  

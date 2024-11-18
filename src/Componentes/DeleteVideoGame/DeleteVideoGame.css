@@ -1,0 +1,32 @@
+.delete-videojuego-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .delete-videojuego-container h2 {
+    color: #333;
+  }
+  
+  .success-message {
+    color: green;
+    margin-bottom: 10px;
+  }
+  
+  .error-message {
+    color: red;
+    margin-bottom: 10px;
+  }
+  
+  .delete-button {
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333;
+  }
+  

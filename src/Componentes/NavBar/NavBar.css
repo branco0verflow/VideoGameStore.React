@@ -1,0 +1,36 @@
+.navbar-custom {
+    background-color: rgba(8, 4, 0, 0.8); /* Fondo negro con transparencia */
+  }
+  
+  .navbar-custom .navbar-brand-custom {
+    color: #f8f9fa; /* Texto claro */
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+  }
+  
+  .navbar-custom .navbar-brand-custom:hover {
+    color: #ff9900; /* Cambia el color al pasar el mouse */
+  }
+  
+  .navbar-custom .nav-link-custom {
+    color: #f8f9fa; /* Texto claro */
+    font-size: 1.1rem;
+    margin-left: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar-custom .nav-link-custom:hover {
+    color: #ff9900; /* Cambia el color al pasar el mouse */
+  }
+
+  #basic-nav-dropdown{
+    color: #ffff;
+  }
+  
+  .navbar-custom .nav-dropdown-custom .dropdown-item-custom {
+    background-color: #f8f9fa; /* Fondo negro con transparencia */
+  }
+  
+
+  
