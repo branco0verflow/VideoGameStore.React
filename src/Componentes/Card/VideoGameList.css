@@ -1,53 +1,62 @@
 .videojuego-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 16px;
-    padding: 16px;
-  }
-  
-  .card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card-img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-  }
-  
-  .card-content {
-    padding: 16px;
-  }
-  
-  .card-content h3 {
-    margin: 0 0 8px;
-    font-size: 18px;
-  }
-  
-  .card-content p {
-    margin: 4px 0;
-    color: #555;
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
 
-  .ghost-button {
-    background-color: #f9a825; /* Naranja de fondo */
-    color: #222; /* Color del texto en el botón */
-    border: 2px solid #f9a825;
-    padding: 10px 20px;
-    margin-left: 50px;
-    margin-right: 50px;
-    text-transform: uppercase;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .ghost-button:hover {
-    background-color: transparent;
-    color: #f9a825;
-  }
-  
+.card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-img {
+  width: 100%;
+  height: 300px; /* Altura mayor para la proporción vertical */
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 16px;
+}
+
+.card-content h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  color: #333;
+}
+
+.card-content p {
+  margin: 4px 0;
+  color: #555;
+}
+
+.ghost-button {
+  background: linear-gradient(45deg, #ff6f61, #ff9966); /* Degradado */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 8px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.ghost-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(255, 111, 97, 0.5);
+}
+
+.ghost-button:active {
+  transform: scale(0.95);
+}

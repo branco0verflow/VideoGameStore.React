@@ -6,6 +6,7 @@ import image6 from '../../Images/gta.jpg'
 import image5 from '../../Images/Play.jpg'
 import VideoGameList from '../Card/VideoGameList';
 import Footer from '../NavBar/Footer';
+import BannerGame from '../BannerGame/BannerGame';
 
 function BannerInicio({user}) {
 
@@ -41,6 +42,7 @@ function BannerInicio({user}) {
             <h4>Usuarios Premium con Descuentos Únicos</h4>
           </div>
         </div>
+        <BannerGame />
         <VideoGameList user={user} />
       </div>
       <Footer />

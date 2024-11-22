@@ -1,0 +1,32 @@
+.images-barte {
+    display: flex;
+    align-items: center;
+    background-color: #ffff;
+    height: 4.5rem;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .bar-image {
+    height: 4.5rem;
+    flex-shrink: 0;
+    margin-right: 10px; /* Espacio entre imágenes */
+  }
+  
+  @keyframes slideRight {
+    0% {
+        transform: translateX(-50%); /* Inicia con las imágenes fuera de la pantalla a la izquierda */
+    }
+    100% {
+        transform: translateX(0); /* Mueve las imágenes hacia la derecha */
+    }
+  }
+  
+  .images-bar-track {
+    display: flex;
+    animation: slideRight 30s linear infinite; /* Cambia la dirección de la animación a la derecha */
+    will-change: transform; /* Mejora el rendimiento de la animación */
+  }
+  
+  
