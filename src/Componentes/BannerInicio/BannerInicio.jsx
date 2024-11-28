@@ -1,11 +1,12 @@
 import React from 'react';
 import { Carousel, Container } from 'react-bootstrap';
 import './BannerInicio.css';
-import image2 from '../../Images/sony.jpg'
+import image2 from '../../Images/cod.png'
 import image6 from '../../Images/gta.jpg'
-import image5 from '../../Images/Play.jpg'
+import image5 from '../../Images/darksouls.png'
 import VideoGameList from '../Card/VideoGameList';
 import Footer from '../NavBar/Footer';
+import BannerGame from '../BannerGame/BannerGame';
 
 function BannerInicio({user}) {
 
@@ -13,12 +14,13 @@ function BannerInicio({user}) {
     <>
       <div>
         <div className="carousel-container">
-          <Carousel>
+          <Carousel >
             <Carousel.Item>
               <img
                 className="d-block w-100"
                 src={image5}
                 alt="Primera Imagen"
+                loading="lazy"
               />
             </Carousel.Item>
             <Carousel.Item>
@@ -26,6 +28,7 @@ function BannerInicio({user}) {
                 className="d-block w-100"
                 src={image6}
                 alt="Segunda Imagen"
+                loading="lazy"
               />
             </Carousel.Item>
             <Carousel.Item>
@@ -33,6 +36,7 @@ function BannerInicio({user}) {
                 className="d-block w-100"
                 src={image2}
                 alt="Tercera Imagen"
+                loading="lazy"
               />
             </Carousel.Item>
           </Carousel>
@@ -41,6 +45,7 @@ function BannerInicio({user}) {
             <h4>Usuarios Premium con Descuentos Únicos</h4>
           </div>
         </div>
+        <BannerGame />
         <VideoGameList user={user} />
       </div>
       <Footer />

@@ -1,48 +1,106 @@
+/* Estilos para la página de detalles del videojuego */
 .videojuego-detalle {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #cecece;
+  min-height: 100vh;
+}
+
+.videojuego-card {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  background-color: rgba(8, 4, 0, 0.9); /* Fondo oscuro para la tarjeta */
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.videojuego-imagen {
+  width: 300px; /* Tamaño fijo para la imagen */
+  height: 400px; /* Mantiene una proporción consistente */
+  object-fit: cover;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.videojuego-info {
+  flex: 1;
+  color: #fff; /* Texto blanco */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.videojuego-info h2 {
+  font-size: 2rem;
+  color: #ff9900; /* Título dorado */
+  margin-bottom: 15px;
+}
+
+.videojuego-info p {
+  font-size: 1.1rem;
+  margin: 10px 0;
+}
+
+.videojuego-info strong {
+  font-weight: bold;
+  color: #ff9900; /* Texto dorado para las etiquetas */
+}
+
+.videojuego-info p:last-child {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fd7e14; /* Precio en color naranja */
+}
+
+/* Estilo para el botón Volver */
+.volver-button {
+  background-color: rgba(8, 4, 0, 0.9); /* Fondo oscuro */
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid #ff9900;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.volver-button:hover {
+  background-color: #ff9900;
+  color: #080400;
+  transform: scale(1.05);
+}
+
+.volver-button:active {
+  transform: scale(0.95); /* Efecto de presionar */
+}
+
+/* Para dispositivos móviles */
+@media (max-width: 768px) {
   .videojuego-card {
-    display: flex;
     flex-direction: column;
     align-items: center;
   }
-  
+
   .videojuego-imagen {
-    max-width: 300px;
-    border-radius: 10px;
+    width: 100%;
+    height: 250px; /* Ajuste de tamaño para pantallas pequeñas */
     margin-bottom: 20px;
   }
-  
+
   .videojuego-info {
-    text-align: left;
+    width: 100%;
+    text-align: center;
   }
-  
+
   .videojuego-info h2 {
-    color: #333;
+    font-size: 1.5rem; /* Ajuste de tamaño para pantallas pequeñas */
   }
-  
-  .videojuego-info p {
-    margin: 5px 0;
-  }
-  
-  .back-button {
-    margin-bottom: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .back-button:hover {
-    background-color: #0056b3;
-  }
-  
+}

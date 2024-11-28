@@ -1,45 +1,129 @@
 .register-container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: #f8f9fa;
+  max-width: 700px; /* Ancho más amplio */
+  margin: 20px auto; /* Espacio adicional arriba y abajo */
+  padding: 25px; /* Espacio interno más cómodo */
+  border-radius: 10px;
+  background: #080400; /* Fondo oscuro */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  font-family: "Arial", sans-serif;
+}
+
+.register-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #ff9900; /* Dorado */
+}
+
+.register-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #ff9900; /* Dorado */
+}
+
+.register-form input,
+.register-form select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #1a1a1a; /* Fondo oscuro para inputs */
+  color: white;
+  transition: border-color 0.3s ease;
+}
+
+.register-form input:focus,
+.register-form select:focus {
+  border-color: #ff9900; /* Dorado al enfocar */
+  outline: none;
+}
+
+.success-message {
+  background-color: #28a745; /* Verde para éxito */
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.error-message {
+  background-color: #dc3545; /* Rojo para error */
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.payment-container {
+  margin-top: 30px;
+  padding: 25px; /* Espacio interno consistente */
+  border-radius: 10px;
+  background: #080400; /* Fondo oscuro */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.payment-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #ff9900; /* Dorado */
+}
+
+.payment-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #ff9900; /* Dorado */
+}
+
+.payment-form input {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #1a1a1a; /* Fondo oscuro para inputs */
+  color: white;
+}
+
+.payment-form input:focus {
+  border-color: #ff9900; /* Dorado al enfocar */
+  outline: none;
+}
+
+.payment-form button {
+  width: 100%;
+  padding: 12px;
+  background: #ff9900; /* Dorado */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.payment-form button:hover {
+  background: #e68900; /* Dorado más oscuro */
+}
+
+.payment-form button:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 600px) {
+  .register-container,
+  .payment-container {
+    padding: 20px; /* Incremento ligero del padding */
+    margin: 10px; /* Margen para separación en dispositivos pequeños */
   }
-  
-  .register-form label {
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  .register-form input,
-  .register-form select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
+
   button {
-    width: 100%;
-    padding: 10px;
-    background: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    font-size: 14px;
   }
-  
-  button:hover {
-    background: #0056b3;
-  }
-  
-  .success-message {
-    color: green;
-  }
-  
-  .error-message {
-    color: red;
-  }
-  
+}

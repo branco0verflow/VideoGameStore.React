@@ -1,53 +1,104 @@
 .videojuego-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 16px;
-    padding: 16px;
-  }
-  
-  .card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card-img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-  }
-  
-  .card-content {
-    padding: 16px;
-  }
-  
-  .card-content h3 {
-    margin: 0 0 8px;
-    font-size: 18px;
-  }
-  
-  .card-content p {
-    margin: 4px 0;
-    color: #555;
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  justify-content: center; /* Centra las tarjetas si hay pocas */
+  padding: 20px;
+}
 
-  .ghost-button {
-    background-color: #f9a825; /* Naranja de fondo */
-    color: #222; /* Color del texto en el botón */
-    border: 2px solid #f9a825;
-    padding: 10px 20px;
-    margin-left: 50px;
-    margin-right: 50px;
-    text-transform: uppercase;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .ghost-button:hover {
-    background-color: transparent;
-    color: #f9a825;
-  }
-  
+.card {
+  max-width: 350px; /* Tamaño máximo razonable para una tarjeta */
+  margin: 0 auto; /* Centra las tarjetas en columnas más anchas */
+  background-color: rgba(8, 4, 0, 0.9); /* Fondo oscuro igual al navbar */
+  border-radius: 12px; /* Borde redondeado */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-img {
+  width: 100%;
+  height: 200px; /* Altura fija para mantener uniformidad */
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 15px;
+  color: #fff; /* Texto blanco */
+}
+
+.card-content h3 {
+  font-size: 1.5rem;
+  color: #ff9900; /* Texto dorado */
+  margin-bottom: 10px;
+}
+
+.card-content p {
+  font-size: 1rem;
+  color: #fff; /* Texto blanco */
+  margin: 5px 0;
+}
+
+.ghost-button {
+  background-color: rgba(8, 4, 0, 0.9); /* Fondo oscuro igual al navbar */
+  color: #fff; /* Texto blanco */
+  border: 1px solid #ff9900; /* Borde dorado */
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 8px;
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.2s ease;
+}
+
+.ghost-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(255, 111, 97, 0.5); /* Sombra suave */
+  background-color: #ff9900; /* Fondo dorado al pasar el mouse */
+  color: #080400; /* Texto oscuro */
+}
+
+.ghost-button:active {
+  transform: scale(0.95); /* Efecto de presionar */
+}
+
+/* Estilos específicos */
+.ghost-button.details {
+  background-color: rgba(8, 4, 0, 0.9); /* Fondo oscuro */
+  border: 1px solid #ff9900; /* Borde dorado */
+}
+
+.ghost-button.details:hover {
+  background-color: #ff9900; /* Fondo dorado */
+  color: #080400; /* Texto oscuro */
+}
+
+.ghost-button.buy {
+  background-color: #fd7e14; /* Naranja */
+  color: white;
+  border: 1px solid #ff9900; /* Borde dorado */
+}
+
+.ghost-button.buy:hover {
+  background-color: #ff9900; /* Fondo dorado */
+  color: #080400; /* Texto oscuro */
+}
+
+
+/* Estilo para el mensaje "Agotado" */
+.agotado {
+    color: red; /* Texto en rojo */
+    font-weight: bold; /* Negrita para destacar */
+    font-size: 1rem; /* Tamaño de fuente adecuado */
+    margin-top: 10px; /* Espaciado hacia arriba */
+}

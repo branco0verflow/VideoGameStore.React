@@ -1,0 +1,93 @@
+/* UserFilter.css */
+
+/* Contenedor principal */
+.user-filter-container {
+    background-color: #080400; /* Fondo oscuro */
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    font-family: "Arial", sans-serif;
+    margin-top: 20px;
+    color: white;
+}
+
+/* Título */
+.user-filter-container h3 {
+    font-size: 2rem;
+    color: #ff9900; /* Dorado */
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Select para filtrar tipo de usuario */
+.user-filter-container select {
+    padding: 10px;
+    border: 2px solid #ff9900; /* Dorado */
+    border-radius: 8px;
+    background-color: #222;
+    color: white;
+    font-size: 1rem;
+    margin-right: 10px;
+    width: 200px;
+    transition: border-color 0.3s;
+}
+
+.user-filter-container select:focus {
+    border-color: #e68900; /* Dorado más oscuro */
+}
+
+/* Botón de búsqueda */
+.user-filter-container button {
+    background-color: #ff9900; /* Dorado */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.user-filter-container button:hover {
+    background-color: #e68900; /* Dorado más oscuro */
+}
+
+.user-filter-container button:active {
+    background-color: #cc7a00; /* Dorado más oscuro */
+}
+
+/* Lista de usuarios */
+.user-filter-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.user-filter-container li {
+    background-color: #222; /* Fondo oscuro */
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos de los usuarios */
+.user-filter-container li h4 {
+    font-size: 1.5rem;
+    color: #ff9900; /* Dorado */
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Detalles del usuario */
+.user-filter-container li p {
+    font-size: 1rem;
+    color: white;
+}
+
+/* Mensaje de no se encontraron usuarios */
+.user-filter-container p.no-results {
+    font-size: 1.2rem;
+    text-align: center;
+    color: #e68900; /* Dorado oscuro */
+    font-weight: bold;
+}

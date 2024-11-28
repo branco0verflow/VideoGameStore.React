@@ -1,0 +1,103 @@
+/* Checkout.css */
+
+/* Contenedor principal del formulario */
+.checkout-container {
+    max-width: 900px; /* Aumenta el ancho del contenedor */
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #080400; /* Fondo oscuro */
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    font-family: "Arial", sans-serif;
+}
+
+/* Título de la página de pago */
+.checkout-container h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ff9900; /* Dorado */
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Estilos del formulario */
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Estilos para cada etiqueta y campo de entrada */
+.payment-form label {
+    font-size: 1.2rem;
+    color: #fff; /* Blanco */
+    font-weight: 600;
+}
+
+.payment-form input {
+    padding: 12px;
+    font-size: 1.1rem;
+    border: 2px solid #444; /* Borde oscuro */
+    border-radius: 8px;
+    background-color: #222; /* Fondo oscuro para los inputs */
+    color: #fff; /* Texto blanco */
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+/* Cambio de color del borde al enfocar */
+.payment-form input:focus {
+    border-color: #ff9900; /* Borde dorado al enfocar */
+    outline: none;
+}
+
+/* Estilo para el botón de pago */
+.payment-form button {
+    padding: 15px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    background-color: #ff9900; /* Dorado */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* El botón ocupa todo el ancho */
+    margin-top: 20px;
+}
+
+/* Efectos en el botón al pasar el ratón */
+.payment-form button:hover {
+    background-color: #e68900; /* Dorado más oscuro */
+}
+
+/* Efectos en el botón al hacer clic */
+.payment-form button:active {
+    background-color: #cc7a00; /* Dorado más oscuro al hacer clic */
+}
+
+/* Estilos para el botón volver */
+.checkout-container .volver-button {
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+/* Responsive: Estilos para pantallas pequeñas */
+@media (max-width: 768px) {
+    .checkout-container {
+        padding: 20px;
+    }
+
+    .payment-form label {
+        font-size: 1.1rem;
+    }
+
+    .payment-form input {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    .payment-form button {
+        font-size: 1.2rem;
+    }
+}

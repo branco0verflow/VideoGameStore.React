@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./EditVideoGame.css";
+import VolverButton from "../VolverButton/VolverButton";
 
 const EditVideoGame = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -14,12 +15,14 @@ const EditVideoGame = () => {
     imagen: "",
     cantidad: "",
     categoria: "",
-    ventas: [{ cantidadVendida: "" }],
   });
 
   const [loading, setLoading] = useState(true);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  
+  // Expresión regular para validar el formato del código
+  const codigoRegex = /^[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
 
   // Obtener los datos actuales del videojuego
   useEffect(() => {
@@ -30,10 +33,7 @@ const EditVideoGame = () => {
           throw new Error("Error al obtener los datos del videojuego");
         }
         const data = await response.json();
-        setFormData({
-          ...data,
-          ventas: [{ cantidadVendida: data.ventas[0]?.cantidadVendida || "" }],
-        });
+        setFormData({ ...data });
         setLoading(false);
       } catch (error) {
         console.error("Error al obtener los datos del videojuego:", error);
@@ -42,29 +42,47 @@ const EditVideoGame = () => {
       }
     };
 
-
     fetchVideoGame();
   }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
-    // Manejar el campo de ventas separadamente
-    if (name === "cantidadVendida") {
-      setFormData({
-        ...formData,
-        ventas: [{ cantidadVendida: value }],
-      });
-    } else {
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
+  // Función para validar el formulario antes de enviarlo
+  const validateForm = () => {
+    if (!codigoRegex.test(formData.codigo)) {
+      setErrorMessage("El código debe seguir el formato AAAA-AAAA-AAAA-AAAA (solo letras mayúsculas y números).");
+      return false;
     }
+    if (formData.nombre.trim().length < 3) {
+      setErrorMessage("El nombre debe tener al menos 3 caracteres.");
+      return false;
+    }
+    if (formData.descripcion.trim().length < 10) {
+      setErrorMessage("La descripción debe tener al menos 10 caracteres.");
+      return false;
+    }
+    if (formData.precio <= 0) {
+      setErrorMessage("El precio debe ser un número positivo.");
+      return false;
+    }
+    if (formData.cantidad < 0) {
+      setErrorMessage("La cantidad debe ser un número positivo.");
+      return false;
+    }
+    return true;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validar el formulario antes de enviarlo
+    if (!validateForm()) return;
 
     try {
       const response = await fetch(`http://localhost:8080/videoJuegos/${id}`, {
@@ -97,14 +115,15 @@ const EditVideoGame = () => {
 
   return (
     <div className="edit-videojuego-container">
+      <VolverButton />
       <h2>Editar Videojuego</h2>
       {successMessage && <div className="success-message">{successMessage}</div>}
       {errorMessage && <div className="error-message">{errorMessage}</div>}
       <form onSubmit={handleSubmit}>
         <label>
-          Código:
+          Clave:
           <input
-            type="number"
+            type="text"
             name="codigo"
             value={formData.codigo}
             onChange={handleChange}
@@ -162,24 +181,20 @@ const EditVideoGame = () => {
           />
         </label>
         <label>
-          Categoría:
-          <input
-            type="text"
+          Género:
+          <select
             name="categoria"
             value={formData.categoria}
             onChange={handleChange}
             required
-          />
-        </label>
-        <label>
-          Ventas - Cantidad Vendida:
-          <input
-            type="number"
-            name="cantidadVendida"
-            value={formData.ventas[0].cantidadVendida}
-            onChange={handleChange}
-            required
-          />
+          >
+            <option value="Acción">Acción</option>
+            <option value="Aventura">Aventura</option>
+            <option value="Estrategia">Estrategia</option>
+            <option value="Deportes">Deportes</option>
+            <option value="Puzzle">Puzzle</option>
+            <option value="RPG">RPG</option>
+          </select>
         </label>
         <button type="submit" className="submit-button">
           Guardar Cambios

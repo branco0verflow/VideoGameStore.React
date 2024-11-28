@@ -1,0 +1,97 @@
+/* DatePurchases.css */
+
+/* Contenedor principal */
+.date-purchases-container {
+    background-color: #080400; /* Fondo oscuro */
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    font-family: "Arial", sans-serif;
+    margin-top: 20px;
+    color: white;
+}
+
+/* Título */
+.date-purchases-container h3 {
+    font-size: 2rem;
+    color: #ff9900; /* Dorado */
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Input de fecha */
+.date-purchases-container input[type="date"] {
+    padding: 10px;
+    border: 2px solid #ff9900; /* Dorado */
+    border-radius: 8px;
+    background-color: #222;
+    color: white;
+    font-size: 1rem;
+    margin-right: 10px;
+    width: 200px;
+    transition: border-color 0.3s;
+}
+
+.date-purchases-container input[type="date"]:focus {
+    border-color: #e68900; /* Dorado más oscuro */
+}
+
+/* Botón de búsqueda */
+.date-purchases-container button {
+    background-color: #ff9900; /* Dorado */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.date-purchases-container button:hover {
+    background-color: #e68900; /* Dorado más oscuro */
+}
+
+.date-purchases-container button:active {
+    background-color: #cc7a00; /* Dorado aún más oscuro */
+}
+
+/* Lista de ventas */
+.date-purchases-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.date-purchases-container li {
+    background-color: #222; /* Fondo oscuro */
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.date-purchases-container li h4 {
+    font-size: 1.3rem;
+    color: #ff9900; /* Dorado */
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Detalles de videojuegos comprados */
+.date-purchases-container ul ul {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.date-purchases-container li p {
+    font-size: 1rem;
+    color: white;
+}
+
+/* Mensaje de no hay ventas */
+.date-purchases-container li.no-sales {
+    font-size: 1.2rem;
+    text-align: center;
+    color: #e68900; /* Dorado oscuro */
+    font-weight: bold;
+}

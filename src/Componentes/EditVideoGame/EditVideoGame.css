@@ -1,61 +1,99 @@
 .edit-videojuego-container {
-    max-width: 600px;
-    margin: 0 auto;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #080400; /* Fondo oscuro */
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  font-family: "Arial", sans-serif;
+}
+
+.edit-videojuego-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #ff9900; /* Dorado */
+}
+
+form label {
+  display: block;
+  margin: 10px 0;
+  font-weight: bold;
+  color: #ff9900; /* Dorado */
+}
+
+form input,
+form textarea,
+form select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #1a1a1a; /* Fondo oscuro para inputs */
+  color: white;
+  transition: border-color 0.3s ease;
+}
+
+form textarea {
+  resize: vertical;
+}
+
+form select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #1a1a1a; /* Fondo oscuro */
+  color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+}
+
+form select:focus {
+  border-color: #ff9900; /* Dorado al enfocarse */
+}
+
+form .submit-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff9900; /* Dorado */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+form .submit-button:hover {
+  background-color: #e68900; /* Dorado más oscuro al pasar el mouse */
+}
+
+.success-message {
+  background-color: #28a745; /* Verde para éxito */
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.error-message {
+  background-color: #dc3545; /* Rojo para error */
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .edit-videojuego-container {
     padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   }
-  
-  .edit-videojuego-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  form label {
-    display: block;
-    margin: 10px 0;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  form input,
-  form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  form textarea {
-    resize: vertical;
-  }
-  
+
   form .submit-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    font-size: 14px;
   }
-  
-  form .submit-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .success-message {
-    color: green;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  
-  .error-message {
-    color: red;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  
+}

@@ -1,36 +1,120 @@
 .navbar-custom {
-    background-color: rgba(8, 4, 0, 0.8); /* Fondo negro con transparencia */
-  }
-  
-  .navbar-custom .navbar-brand-custom {
-    color: #f8f9fa; /* Texto claro */
-    font-weight: bold;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-  }
-  
-  .navbar-custom .navbar-brand-custom:hover {
-    color: #ff9900; /* Cambia el color al pasar el mouse */
-  }
-  
-  .navbar-custom .nav-link-custom {
-    color: #f8f9fa; /* Texto claro */
-    font-size: 1.1rem;
-    margin-left: 1rem;
-    transition: color 0.3s ease;
-  }
-  
-  .navbar-custom .nav-link-custom:hover {
-    color: #ff9900; /* Cambia el color al pasar el mouse */
-  }
+  background-color: #0a0a0a; /* Fondo negro sólido */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Sombra sutil para darle profundidad */
+}
 
-  #basic-nav-dropdown{
-    color: #ffff;
-  }
-  
-  .navbar-custom .nav-dropdown-custom .dropdown-item-custom {
-    background-color: #f8f9fa; /* Fondo negro con transparencia */
-  }
-  
+.navbar-custom .navbar-brand-custom {
+  color: #ff9900; /* Texto dorado */
+  font-weight: bold;
+  font-size: 1.7rem; /* Tamaño más destacado */
+  text-transform: uppercase;
+  letter-spacing: 2px; /* Espaciado entre letras */
+  transition: color 0.3s ease;
+}
 
-  
+.navbar-custom .navbar-brand-custom:hover {
+  color: #fff; /* Cambia a blanco al pasar el mouse */
+}
+
+.navbar-custom .nav-link-custom {
+  color: #f8f9fa; /* Texto claro */
+  font-size: 1.2rem;
+  margin-left: 1.2rem;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+.navbar-custom .nav-link-custom:hover {
+  color: #ff9900; /* Cambia a dorado al pasar el mouse */
+}
+
+
+
+/* Estiliza las opciones del dropdown */
+.nav-dropdown-custom .dropdown-item-custom {
+  color: #ff9900; /* Texto dorado */
+  background-color: transparent; /* Fondo oscuro por defecto */
+  padding: 10px 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Al pasar el mouse sobre una opción */
+.nav-dropdown-custom .dropdown-item-custom:hover {
+  background-color: #ff9900; /* Fondo dorado */
+  color: #080400; /* Texto oscuro */
+}
+
+/* Título "Más" del NavDropdown */
+.nav-dropdown-custom .dropdown-toggle {
+  color: #fff; /* Color blanco */
+  font-size: 1.2rem; /* Tamaño de fuente similar al de los links */
+  font-weight: 500; /* Peso de fuente similar al de los links */
+  transition: color 0.3s ease, transform 0.3s ease; /* Animación suave */
+}
+
+/* Cambia el color de fondo cuando el dropdown está abierto */
+.nav-dropdown-custom .dropdown-toggle:focus, 
+.nav-dropdown-custom .dropdown-toggle.open {
+  background-color: rgba(8, 4, 0, 0.9); /* Fondo oscuro al estar abierto */
+  color: #ffffff; /* Color dorado para el texto */
+}
+
+
+.nav-dropdown-custom .dropdown-toggle:hover {
+  color: #ff9900; /* Texto dorado */
+}
+
+
+/* Si deseas cambiar el ícono del dropdown (flecha) */
+.nav-dropdown-custom .dropdown-toggle::after {
+  color: #ff9900; /* Flecha dorada */
+  transition: color 0.3s ease;
+}
+
+.nav-dropdown-custom .dropdown-toggle:hover::after {
+  color: #fff; /* Flecha blanca al pasar el mouse */
+}
+
+/* Eliminar el contorno de foco (borde naranja) en el "Más" */
+.nav-dropdown-custom .dropdown-toggle:focus,
+.nav-dropdown-custom .dropdown-toggle:active {
+  outline: none; /* Elimina el contorno */
+  box-shadow: none; /* Elimina la sombra del borde */
+}
+
+
+/* Estiliza el separador */
+.nav-dropdown-custom .dropdown-divider {
+  border-color: #ff9900; /* Línea divisoria dorada */
+}
+
+
+.navbar-custom .cart-link {
+  position: relative;
+  color: #f8f9fa;
+  font-size: 1.2rem;
+  margin-left: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.navbar-custom .cart-link:hover {
+  color: #ff9900;
+}
+
+.navbar-custom .cart-icon {
+  font-size: 1.5rem; /* Ajustar tamaño del ícono del carrito */
+}
+
+.cart-count {
+  position: absolute;
+  top: 0;
+  right: -10px;
+  background-color: #ff9900;
+  color: #0a0a0a;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 2px 6px;
+  min-width: 20px;
+  text-align: center;
+}

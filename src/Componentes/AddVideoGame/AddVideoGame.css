@@ -1,61 +1,101 @@
-.add-videojuego-container {
-    max-width: 600px;
-    margin: 0 auto;
+/* Contenedor principal del formulario */
+.add-video-game-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 10px auto 0; /* Agregado margen superior para separar del navbar y centrar */
+  padding: 30px;
+  background-color: #080400; /* Fondo oscuro */
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  color: white;
+  font-family: "Arial", sans-serif;
+}
+
+/* Encabezado */
+.add-video-game-container h2 {
+  text-align: center;
+  color: #ff9900; /* Dorado */
+  margin-bottom: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* Mensajes de éxito y error */
+.success-message {
+  background-color: #28a745; /* Verde para éxito */
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.error-message {
+  background-color: #dc3545; /* Rojo para error */
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Estilo del formulario */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Etiquetas de los campos */
+label {
+  font-weight: bold;
+  color: #ff9900; /* Dorado */
+  margin-bottom: 5px;
+}
+
+/* Estilo de los inputs */
+input {
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #1a1a1a; /* Fondo oscuro para inputs */
+  color: white;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #ff9900; /* Dorado al enfocarse */
+  outline: none;
+}
+
+/* Estilo del botón de submit */
+.submit-button {
+  padding: 12px 20px;
+  font-size: 16px;
+  background-color: #ff9900; /* Dorado */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-button:hover {
+  background-color: #e68900; /* Dorado más oscuro al pasar el mouse */
+}
+
+.submit-button:active {
+  transform: scale(0.98);
+}
+
+/* Respuesta para pantallas pequeñas */
+@media (max-width: 600px) {
+  .add-video-game-container {
     padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   }
-  
-  .add-videojuego-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+
+  .submit-button {
+    font-size: 14px;
   }
-  
-  form label {
-    display: block;
-    margin: 10px 0;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  form input,
-  form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  form textarea {
-    resize: vertical;
-  }
-  
-  form .submit-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  form .submit-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .success-message {
-    color: green;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  
-  .error-message {
-    color: red;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  
+}

@@ -1,0 +1,101 @@
+/* Botones de acción */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .action-btn {
+    background-color: #ff9900; /* Dorado */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .action-btn:hover {
+    background-color: #e68900; /* Dorado más oscuro */
+  }
+  
+  .action-btn:active {
+    background-color: #cc7a00; /* Dorado más oscuro */
+  }
+  
+  /* Estilo para la tabla */
+  .video-game-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #080400; /* Fondo oscuro */
+    color: white;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    font-family: "Arial", sans-serif;
+    text-align: center;
+  }
+  
+  .video-game-table th,
+  .video-game-table td {
+    padding: 15px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+  
+  .video-game-table th {
+    background-color: #1a1a1a; /* Fondo oscuro para los encabezados */
+    color: #ff9900; /* Dorado */
+  }
+  
+  .video-game-table tr:nth-child(even) {
+    background-color: #222222; /* Fondo más oscuro en filas pares */
+  }
+  
+  .video-game-table tr:hover {
+    background-color: #333333; /* Efecto hover para filas */
+  }
+  
+  .video-game-table td button {
+    background-color: #ff9900; /* Dorado */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+  }
+  
+  .video-game-table td button:hover {
+    background-color: #e68900; /* Dorado más oscuro */
+  }
+  
+  .video-game-table td button:active {
+    background-color: #cc7a00; /* Dorado más oscuro */
+  }
+  
+  /* Estilo del botón de Volver */
+  .volver-button {
+    margin-bottom: 20px;
+  }
+  
+  /* Estilos responsivos */
+  @media (max-width: 768px) {
+    .video-game-table {
+      font-size: 0.9rem; 
+    }
+  
+    .video-game-table th,
+    .video-game-table td {
+      padding: 10px;
+    }
+  
+    .video-game-table td button {
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
+  

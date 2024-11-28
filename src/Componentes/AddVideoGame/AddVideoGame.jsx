@@ -3,38 +3,50 @@ import "./AddVideoGame.css"; // Opcional: agrega estilos personalizados
 
 const AddVideoGame = () => {
   const [formData, setFormData] = useState({
-    codigo: "",
+    codigo: "", // El código se llenará automáticamente
     nombre: "",
     descripcion: "",
     precio: "",
     imagen: "",
     cantidad: "",
-    categoria: "",
-    ventas: [{ cantidadVendida: "" }],
+    categoria: "Acción",
   });
 
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Función para generar una clave aleatoria en el formato AAAA-AAAA-AAAA-AAAA
+  const generarClaveAleatoria = () => {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let clave = '';
+    for (let i = 0; i < 4; i++) {
+      let segmento = '';
+      for (let j = 0; j < 4; j++) {
+        const randomIndex = Math.floor(Math.random() * caracteres.length);
+        segmento += caracteres[randomIndex];
+      }
+      clave += segmento + (i < 3 ? '-' : '');  // Añadir guiones entre los segmentos
+    }
+    return clave;
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Manejar el campo de ventas separadamente
-    if (name === "cantidadVendida") {
-      setFormData({
-        ...formData,
-        ventas: [{ cantidadVendida: value }],
-      });
-    } else {
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
-    }
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Generar una clave aleatoria antes de enviar el formulario
+    const claveGenerada = generarClaveAleatoria();
+
+    // Añadir la clave generada al formulario
+    const videojuegoConClave = { ...formData, codigo: claveGenerada };
 
     try {
       const response = await fetch("http://localhost:8080/videoJuegos", {
@@ -42,7 +54,7 @@ const AddVideoGame = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(videojuegoConClave),
       });
 
       if (!response.ok) {
@@ -58,8 +70,7 @@ const AddVideoGame = () => {
         precio: "",
         imagen: "",
         cantidad: "",
-        categoria: "",
-        ventas: [{ cantidadVendida: "" }],
+        categoria: "Acción", // Reinicia el valor inicial
       });
     } catch (error) {
       console.error("Error al agregar el videojuego:", error);
@@ -69,21 +80,12 @@ const AddVideoGame = () => {
   };
 
   return (
-    <div className="add-videojuego-container">
+    <div className="add-video-game-container">
       <h2>Agregar Videojuego</h2>
       {successMessage && <div className="success-message">{successMessage}</div>}
       {errorMessage && <div className="error-message">{errorMessage}</div>}
       <form onSubmit={handleSubmit}>
-        <label>
-          Código:
-          <input
-            type="number"
-            name="codigo"
-            value={formData.codigo}
-            onChange={handleChange}
-            required
-          />
-        </label>
+
         <label>
           Nombre:
           <input
@@ -132,27 +134,24 @@ const AddVideoGame = () => {
             value={formData.cantidad}
             onChange={handleChange}
             required
+            min="0"
           />
         </label>
         <label>
-          Categoría:
-          <input
-            type="text"
+          Género:
+          <select
             name="categoria"
             value={formData.categoria}
             onChange={handleChange}
             required
-          />
-        </label>
-        <label>
-          Ventas - Cantidad Vendida:
-          <input
-            type="number"
-            name="cantidadVendida"
-            value={formData.ventas[0].cantidadVendida}
-            onChange={handleChange}
-            required
-          />
+          >
+            <option value="Acción">Acción</option>
+            <option value="Aventura">Aventura</option>
+            <option value="Estrategia">Estrategia</option>
+            <option value="Deportes">Deportes</option>
+            <option value="Puzzle">Puzzle</option>
+            <option value="RPG">RPG</option>
+          </select>
         </label>
         <button type="submit" className="submit-button">
           Agregar Videojuego
