@@ -6,7 +6,7 @@ import { CartContext } from "../../context/cartContext"; // Importar el contexto
 
 // Componente para mostrar la tarjeta de videojuego
 const Card = ({ videojuego, isAdmin, handleButtonClick, isLoggedIn, navigateToLogin }) => {
-  const { addToCart } = useContext(CartContext); // Usar el contexto del carrito
+  const { addToCart } = useContext(CartContext); // Usar el contexto del carrito -- Encontre que era la forma con el usoi de UseContext!! Solucionado
 
   const handleAddToCart = (videojuego) => {
     const cantidadSolicitada = 1; // Puedes modificar esto según la cantidad que el usuario desee agregar
@@ -18,7 +18,7 @@ const Card = ({ videojuego, isAdmin, handleButtonClick, isLoggedIn, navigateToLo
     }
 
     if (isLoggedIn) {
-      addToCart(videojuego, cantidadSolicitada); // Agregar al carrito si el usuario está logueado
+      addToCart(videojuego, cantidadSolicitada); // Agregar al carrito si el usuario está loguea2
     } else {
       navigateToLogin(); // Redirigir al login si no está logueado
     }
