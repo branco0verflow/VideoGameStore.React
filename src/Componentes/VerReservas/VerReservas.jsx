@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSocio } from "../../Componentes/socioContext/socioContext";
 import "./VerReservas.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faTrash } from '@fortawesome/free-solid-svg-icons';
+
 
 const VerReservas = () => {
   const { socio } = useSocio();
@@ -93,6 +96,25 @@ const VerReservas = () => {
     }
   };
 
+  const eliminarReserva = async (reservaId) => {
+    try {
+      const response = await fetch(`https://albo-barber.onrender.com/reservas/${reservaId}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Error al eliminar la reserva");
+      }
+      // Actualizar la lista de reservas eliminando la reserva cancelada
+      setReservas((prevReservas) =>
+        prevReservas.filter((reserva) => reserva.id !== reservaId)
+      );
+      alert("Reserva eliminar con éxito");
+    } catch (err) {
+      alert(`Error al eliminar la reserva: ${err.message}`);
+      console.log(reservaId);
+    }
+  };
+
   const fetchGastosDelDia = async (fechaSeleccionada) => {
     try {
       const response = await fetch(
@@ -160,9 +182,15 @@ const VerReservas = () => {
               {reserva.estado ? <p>Confirmado</p> : ""}
               {!reserva.estado && (
                 <button onClick={() => confirmarReserva(reserva.id)}>
-                  Confirmar
+                  <FontAwesomeIcon icon={faCheck} /> Confirmar
                 </button>
               )}
+              {!reserva.estado ? (
+                <button onClick={() => eliminarReserva(reserva.id)}>
+                  <FontAwesomeIcon icon={faTrash} /> Eliminar
+                </button>
+              ) : ""}
+
             </div>
           ))
         )}
