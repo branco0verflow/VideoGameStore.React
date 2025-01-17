@@ -1,0 +1,220 @@
+/* Fondo general con fondo oscuro */
+.container-gral {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ /* Logo */
+ form .logo1 {
+  width: 30%;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Estilos del formulario */
+form {
+  background: #100008;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  width: 500px;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+  z-index: 10;
+}
+
+.bungee-inline-regular {
+  font-family: "Bungee Inline", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+/* Título del formulario */
+form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: rgb(197, 213, 199)
+}
+
+/* Estilos para mensajes de error */
+form p {
+  color: rgb(204, 197, 197);
+  text-align: center;
+}
+
+/* Contenedor de socios */
+.socios-container {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+/* Tarjetas de socios */
+.socio-card {
+  cursor: pointer;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  transition: border 1.3s;
+}
+
+.socio-card img {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.socio-card p {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* Campo seleccionado */
+.socio-card.seleccionado {
+  border: 3px solid rgb(240, 245, 240);
+}
+
+/* Estilos generales de campo */
+.field {
+  margin-bottom: 20px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Botón */
+form button {
+  width: 100%;
+  padding: 10px;
+  background: darkgreen;
+  color: #1a0505;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+form button:hover {
+  background: #006400;
+}
+
+/* Estilos generales para el switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px; /* Ancho del switch */
+  height: 24px; /* Altura del switch */
+}
+
+/* Ocultar el checkbox original */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Estilo del slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc; /* Color del fondo del switch */
+  transition: .4s; /* Transición suave */
+  border-radius: 34px; /* Bordes redondeados */
+}
+
+/* Estilo del slider cuando el checkbox está activado */
+.switch input:checked + .slider {
+  background-color: #2196F3; /* Color del fondo cuando está activado */
+}
+
+/* Estilo del círculo dentro del switch */
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px; /* Altura del círculo */
+  width: 16px; /* Ancho del círculo */
+  left: 4px; /* Espaciado desde la izquierda */
+  bottom: 4px; /* Espaciado desde la parte inferior */
+  background-color: white; /* Color del círculo */
+  border-radius: 50%; /* Hacer el círculo redondo */
+  transition: .4s; /* Transición suave */
+}
+
+/* Estilo del círculo cuando el checkbox está activado */
+.switch input:checked + .slider:before {
+  transform: translateX(26px); /* Mover el círculo a la derecha */
+}
+
+.mis-reservas-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent; /* Asegura fondo transparente */
+  margin-top: 20px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espaciado entre los botones */
+}
+
+.reservas-btn,
+.perfil-btn,
+.salir-btn {
+  background: transparent; /* Fondo transparente */
+  border: 2px solid #ffffff; /* Borde blanco */
+  color: #ffffff; /* Texto blanco */
+  padding: 10px 20px; /* Espaciado interno */
+  font-size: 16px; /* Tamaño del texto */
+  font-family: "Arial", sans-serif;
+  border-radius: 25px; /* Bordes redondeados */
+  cursor: pointer;
+  transition: all 0.3s ease-in-out; /* Transiciones suaves */
+}
+
+.reservas-btn:hover,
+.perfil-btn:hover,
+.salir-btn:hover {
+  background: #ffffff; /* Fondo blanco al pasar el ratón */
+  color: #000000; /* Texto negro al pasar el ratón */
+  border-color: #000000; /* Borde negro al pasar el ratón */
+  transform: scale(1.05); /* Efecto de ampliación */
+}
+
+.reservas-btn:active,
+.perfil-btn:active,
+.salir-btn:active {
+  transform: scale(0.95); /* Efecto de clic */
+}
+
+.salir-btn {
+  border: 2px dashed #ff4d4d; /* Borde especial para botón Salir */
+  color: #ff4d4d; /* Texto rojo */
+}
+
+.salir-btn:hover {
+  background: #ff4d4d; /* Fondo rojo al pasar el ratón */
+  color: #ffffff; /* Texto blanco */
+}

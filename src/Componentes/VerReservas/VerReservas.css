@@ -1,0 +1,86 @@
+.ver-reservas-container {
+    max-width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    color: #fff;
+  }
+  
+  .botones-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .fecha-selector {
+    padding: 5px;
+  }
+  
+  .reservas-list {
+    margin-top: 20px;
+    color: white;
+  }
+  
+  .bungee-inline-regular {
+    font-family: "Bungee Inline", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .reserva-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .error-message {
+    color: red;
+  }
+
+  .cierre-caja-container {
+    margin-top: 30px;
+    border-top: 2px solid #ddd;
+    padding-top: 20px;
+  }
+  
+  .cierre-caja-container h3 {
+    margin-bottom: 10px;
+  }
+  
+  .nuevo-gasto-form {
+    margin-top: 20px;
+    max-width: 20%;
+  }
+  
+  .nuevo-gasto-form input {
+    margin-right: 10px;
+    padding: 5px;
+  }
+  
+  .nuevo-gasto-form button {
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .gastos-container {
+    margin-top: 20px;
+    padding: 10px;
+  }
+  
+  .gastos-container h3 {
+    margin-bottom: 10px;
+  }
+  
+  .gastos-container ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .gastos-container li {
+    margin-bottom: 10px;
+  }
+  
+  

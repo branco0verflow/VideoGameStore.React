@@ -1,0 +1,105 @@
+/* Contenedor principal */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Formulario */
+  .login-form {
+    background: #100008; /* Fondo negro */
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2); /* Sombra blanca */
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  /* Logo */
+  .logo {
+    width: 60%;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  
+  /* Encabezado */
+  h2 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #6c6767; /* Letras blancas */
+  }
+  
+  /* Grupo de formulario */
+  .form-group {
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    font-size: 1rem;
+    color: #dddddd; /* Letras claras */
+  }
+
+  
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #555555; /* Borde gris oscuro */
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #1e1e1e; /* Fondo del input */
+    color: #ffffff; /* Texto blanco */
+  }
+  
+  .form-group input::placeholder {
+    color: #bbbbbb; /* Placeholder gris claro */
+  }
+  
+  /* Botón */
+  .login-button {
+    width: 100%;
+    padding: 10px 15px;
+    background: transparent; /* Estilo ghost */
+    color: #ffffff; /* Letras blancas */
+    border: 2px solid #ffffff; /* Borde blanco */
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .login-button:hover {
+    background: #555555; /* Fondo gris claro al pasar el mouse */
+    color: #ffffff;
+    border-color: #dddddd;
+  }
+  
+  /* Mensaje de error */
+  .error-message {
+    color: #ff4c4c; /* Rojo claro */
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+  
+  /* Enlaces */
+  .links-container {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #dddddd;
+  }
+  
+  .link {
+    color: #1e90ff; /* Azul claro */
+    cursor: pointer;
+    text-decoration: none; /* Sin subrayado */
+    transition: color 0.3s ease;
+  }
+  
+  .link:hover {
+    color: #00bfff; /* Azul más claro al pasar el mouse */
+  }
+  

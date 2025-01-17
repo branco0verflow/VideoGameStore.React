@@ -1,0 +1,72 @@
+.mis-reservas {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .mis-reservas h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .volver-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .volver-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .reservas-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .reserva-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+
+  .bungee-inline-regular {
+    font-family: "Bungee Inline", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .reserva-detalle p {
+    margin: 0.2rem 0;
+    color: #555;
+  }
+  
+  .cancelar-btn {
+    padding: 0.5rem 1rem;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .cancelar-btn:hover {
+    background-color: #a71d2a;
+  }
+  
