@@ -4,6 +4,44 @@
     text-align: center;
     color: #fff;
   }
+
+  /* Contenedor de los horarios disponibles */
+.horarios-disponibles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+/* Botones de horario */
+.horario-boton {
+  background-color: transparent;
+  border: 2px solid #007bff; /* Color del borde */
+  color: #007bff; /* Color del texto */
+  padding: 10px 20px;
+  border-radius: 20px; /* Hace los botones ovalados */
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  min-width: 80px; /* Tamaño mínimo para pantallas pequeñas */
+}
+
+/* Efecto hover para el botón */
+.horario-boton:hover {
+  background-color: #032864;
+  color: rgb(250, 249, 249);
+}
+
+/* Responsivo: ajustar tamaño en pantallas pequeñas */
+@media (max-width: 480px) {
+  .horario-boton {
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+}
+
   
   .botones-container {
     display: flex;

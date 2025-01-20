@@ -11,6 +11,7 @@ import AdminReservas from "./Componentes/AdministrarReservas/AdministrarReserva"
 import VerReservas from "./Componentes/VerReservas/VerReservas";
 import AdminBarberos from "./Componentes/AdminBarberos/AdminBarberos";
 import AdminCortes from "./Componentes/AdminCorteCortesia/AdminCorteCortesia";
+import CreaReservaSocio from "./Componentes/CreaReservaSocio/CreaReservaSocio";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/adminCortes" element={<AdminCortes />} />
         <Route path="/miperfil" element={<PerfilUsuario />} />
         <Route path="/verReservas" element={<VerReservas />} />
+        <Route path="/crearReserva" element={<CreaReservaSocio />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

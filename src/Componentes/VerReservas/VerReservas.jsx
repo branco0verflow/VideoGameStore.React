@@ -17,6 +17,8 @@ const VerReservas = () => {
   const [nuevoGasto, setNuevoGasto] = useState({ descripcion: "", monto: "" });
   const [listaGastos, setListaGastos] = useState([]);
   const [error, setError] = useState("");
+  const [horariosDisponibles, setHorarios] = useState([]);
+  const [horaSeleccionada, setHoraSeleccionada] = useState(null);
 
   const fetchReservas = async (fechaSeleccionada) => {
     try {
@@ -26,13 +28,20 @@ const VerReservas = () => {
       if (!response.ok) {
         throw new Error("Error al obtener reservas");
       }
-      const data = await response.json();
-      setReservas(data);
+      const data = response.status === 204 || response.headers.get("Content-Length") === "0"
+        ? []
+        : await response.json();
+
+      setReservas(data); // Actualiza las reservas incluso si está vacío
+      setError("");
     } catch (err) {
       console.error(err);
       setError("No se pudieron cargar las reservas o no hay para este día.");
     }
   };
+
+
+
 
   const fetchCierreCaja = async (fechaSeleccionada) => {
     try {
@@ -46,6 +55,7 @@ const VerReservas = () => {
       setFacturacion(data.facturacion);
       setGastos(data.gastos);
       console.log(data.gastos);
+      console.log("Id del Socio: ", socio.id);
       setCierreCaja(data.cierreCaja);
     } catch (err) {
       console.error(err);
@@ -131,6 +141,26 @@ const VerReservas = () => {
     }
   };
 
+  useEffect(() => {
+
+    const fetchHorarios = async () => {
+      if (socio && selectedDate) {
+        try {
+          const [anio, mes, dia] = selectedDate.split("-");
+          const response = await fetch(
+            `https://albo-barber.onrender.com/reservas/horarios-disponibles/${socio.id}?anio=${anio}&mes=${mes}&dia=${dia}`
+          );
+          const data = await response.json();
+          setHorarios(data);
+          console.log("se ejecuta fetch de hora", data);
+        } catch (err) {
+          console.error("Error al cargar los horarios disponibles", err);
+        }
+      }
+    };
+
+    fetchHorarios();
+  }, [socio, selectedDate]);
 
   useEffect(() => {
     fetchReservas(selectedDate);
@@ -164,11 +194,10 @@ const VerReservas = () => {
           onChange={handleSeleccionarDia}
           className="fecha-selector"
         />
-        <button onClick={() => navigate(-1)}>Atrás</button>
+        <button onClick={() => navigate("/adminReservas")}>Atrás</button>
       </div>
 
       <h2 className="bungee-inline-regular">Para {selectedDate}</h2>
-      {error && <p className="error-message">{error}</p>}
       <div className="reservas-list">
         {reservas.length === 0 ? (
           <p>No hay reservas para esta fecha.</p>
@@ -179,21 +208,30 @@ const VerReservas = () => {
               <p>Cliente: {reserva.usuario.nombre} {reserva.usuario.apellido}</p>
               <p>Telefono: {reserva.usuario.telefono} </p>
               <p>{reserva.tipoDeCorte.nombre} ${reserva.tipoDeCorte.precio}</p>
-              {reserva.estado ? <p>Confirmado</p> : ""}
               {!reserva.estado && (
                 <button onClick={() => confirmarReserva(reserva.id)}>
-                  <FontAwesomeIcon icon={faCheck} /> Confirmar
+                  <FontAwesomeIcon icon={faCheck} />
                 </button>
               )}
               {!reserva.estado ? (
                 <button onClick={() => eliminarReserva(reserva.id)}>
-                  <FontAwesomeIcon icon={faTrash} /> Eliminar
+                  <FontAwesomeIcon icon={faTrash} />
                 </button>
               ) : ""}
-
             </div>
           ))
         )}
+        <div className="horarios-disponibles">
+          {horariosDisponibles.map((hora, index) => (
+            <button
+              key={index}
+              className="horario-boton"
+              onClick={() => navigate('/crearReserva', { state: { selectedDate, hora } })}
+            >
+              {hora}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="cierre-caja-container">

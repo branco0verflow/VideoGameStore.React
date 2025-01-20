@@ -1,19 +1,19 @@
 /* VolverButton.css */
 .volver-button {
-  background-color: rgba(8, 4, 0, 0.9); /* Fondo oscuro con algo de transparencia */
+  background-color: transparent; /* Fondo oscuro con algo de transparencia */
   color: #fff; /* Texto blanco */
-  padding: 12px 24px; /* Más espacio para el texto */
-  border: 2px solid #ff9900; /* Borde dorado */
-  border-radius: 8px; /* Borde redondeado */
+  border: 2px solid #b20634; /* Borde dorado */
+  border-radius:100px; /* Borde redondeado */
   font-size: 18px; /* Fuente más grande */
   font-weight: bold; /* Texto en negrita */
   cursor: pointer;
+  max-width: 70px;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 .volver-button:hover {
-  background-color: #ff9900; /* Fondo dorado al pasar el mouse */
-  color: #080400; /* Texto oscuro */
+  background-color: #6a020e; /* Fondo dorado al pasar el mouse */
+  color: #f9f9f8; /* Texto oscuro */
   transform: scale(1.05); /* Efecto de agrandar el botón */
   box-shadow: 0 4px 10px rgba(255, 111, 97, 0.5); /* Sombra suave */
 }
@@ -28,7 +28,7 @@
 }
 
 /* Estilos específicos para pantallas pequeñas */
-@media (max-width: 768px) {
+@media (max-width: 168px) {
   .volver-button {
     padding: 10px 20px; /* Ajustar el tamaño del botón en pantallas pequeñas */
     font-size: 16px;

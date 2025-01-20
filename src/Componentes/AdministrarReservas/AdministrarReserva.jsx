@@ -20,6 +20,7 @@ const AdminReservas = () => {
       <div className="button-group">
         <button onClick={() => navigate("/VerReservas")}>Ver Reservas</button>
         <button onClick={() => navigate("/registrarse")}>Crear Usuario</button>
+        <button onClick={() => navigate("/crearReserva")}>Crear Reservas</button>
         {socio?.admin && (
           <button onClick={() => navigate("/adminBarberos")}>
             Administrar Barberos
