@@ -1,21 +1,29 @@
 /* Contenedor principal */
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Mantiene la altura completa de la pantalla */
+  width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+}
   
   /* Formulario */
   .login-form {
     background: #100008; /* Fondo negro */
-    padding: 30px 40px;
+    padding: 30px 20px; /* Ajusta el padding para pantallas pequeñas */
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2); /* Sombra blanca */
     text-align: center;
-    width: 100%;
-    max-width: 400px;
+    width: 100%; /* Asegura que el formulario ocupe todo el ancho */
+    height: auto; /* Permite que la altura se ajuste automáticamente */
+    max-width: none; /* Elimina el límite de ancho máximo */
+}
+
+@media (max-width: 600px) {
+  .login-form {
+      padding: 20px; /* Reduce el padding en pantallas pequeñas */
   }
+}
   
   /* Logo */
   .logo {

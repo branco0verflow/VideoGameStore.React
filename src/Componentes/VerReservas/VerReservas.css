@@ -5,6 +5,24 @@
     color: #fff;
   }
 
+  .button-rounded {
+    border: none;
+    border-radius: 25px; /* Bordes redondeados */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de texto */
+    color: white; /* Color del texto */
+    background: linear-gradient(45deg, #054ccf, #24baed); /* Degradado azul */
+    cursor: pointer; /* Cursor de mano */
+    transition: all 0.3s ease; /* Transición suave */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+  }
+  
+  .button-rounded:hover {
+    background: linear-gradient(45deg, #074a97, #0a2f67); /* Degradado azul */
+    color: #fefefe; /* Cambiar el color del texto */
+    transform: scale(1.02); /* Escala ligeramente al hacer hover */
+  }
+
   /* Contenedor de los horarios disponibles */
 .horarios-disponibles {
   display: flex;
@@ -14,11 +32,13 @@
   margin: 20px 0;
 }
 
+
+
 /* Botones de horario */
 .horario-boton {
   background-color: transparent;
   border: 2px solid #007bff; /* Color del borde */
-  color: #007bff; /* Color del texto */
+  color: #e7edf3; /* Color del texto */
   padding: 10px 20px;
   border-radius: 20px; /* Hace los botones ovalados */
   font-size: 14px;
@@ -46,6 +66,7 @@
   .botones-container {
     display: flex;
     justify-content: space-around;
+    margin-top: 10px;
     margin-bottom: 20px;
   }
   
@@ -67,7 +88,7 @@
   .reserva-item {
     border: 1px solid #ddd;
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     border-radius: 5px;
   }
   
@@ -87,7 +108,7 @@
   
   .nuevo-gasto-form {
     margin-top: 20px;
-    max-width: 20%;
+    max-width: 30%;
   }
   
   .nuevo-gasto-form input {
@@ -120,5 +141,12 @@
   .gastos-container li {
     margin-bottom: 10px;
   }
+
+  .abel-regular {
+    font-family: "Abel", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
   
   

@@ -18,16 +18,15 @@ const AdminReservas = () => {
       <img src={imgLogo} alt="Logo de la barbería" className="logo" />
       <h2>Administración</h2>
       <div className="button-group">
-        <button onClick={() => navigate("/VerReservas")}>Ver Reservas</button>
-        <button onClick={() => navigate("/registrarse")}>Crear Usuario</button>
-        <button onClick={() => navigate("/crearReserva")}>Crear Reservas</button>
+        <button className="button-rounded" onClick={() => navigate("/VerReservas")}>Ver Reservas</button>
+        <button className="button-rounded" onClick={() => navigate("/registrarse")}>Crear Usuario</button>
         {socio?.admin && (
-          <button onClick={() => navigate("/adminBarberos")}>
+          <button className="button-rounded" onClick={() => navigate("/adminBarberos")}>
             Administrar Barberos
           </button>
         )}
         {socio?.admin && (
-          <button onClick={() => navigate("/adminCortes")}>
+          <button className="button-rounded" onClick={() => navigate("/adminCortes")}>
             Administrar Cortes
           </button>
         )}

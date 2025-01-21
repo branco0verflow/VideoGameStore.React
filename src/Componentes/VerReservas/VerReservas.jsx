@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useSocio } from "../../Componentes/socioContext/socioContext";
 import "./VerReservas.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faTrash, faClock, faUser, faMobile, faScissors } from '@fortawesome/free-solid-svg-icons';
+import VolverButton from "../VolverButton/VolverButton";
 
 
 const VerReservas = () => {
@@ -186,15 +187,15 @@ const VerReservas = () => {
   return (
     <div className="ver-reservas-container">
       <div className="botones-container">
-        <button onClick={handleHoy}>Hoy</button>
-        <button onClick={handleManana}>Mañana</button>
+        <button className="button-rounded" onClick={handleHoy}>Hoy</button>
+        <button className="button-rounded" onClick={handleManana}>Mañana</button>
         <input
           type="date"
           value={selectedDate}
           onChange={handleSeleccionarDia}
           className="fecha-selector"
         />
-        <button onClick={() => navigate("/adminReservas")}>Atrás</button>
+        <VolverButton />
       </div>
 
       <h2 className="bungee-inline-regular">Para {selectedDate}</h2>
@@ -204,10 +205,10 @@ const VerReservas = () => {
         ) : (
           reservas.map((reserva) => (
             <div key={reserva.id} className="reserva-item">
-              <p>Hora: {reserva.horarioSeleccionado}</p>
-              <p>Cliente: {reserva.usuario.nombre} {reserva.usuario.apellido}</p>
-              <p>Telefono: {reserva.usuario.telefono} </p>
-              <p>{reserva.tipoDeCorte.nombre} ${reserva.tipoDeCorte.precio}</p>
+              <p className="abel-regular"><FontAwesomeIcon icon={faClock} /> <strong>{reserva.horarioSeleccionado}</strong> </p>
+              <p className="abel-regular"><FontAwesomeIcon icon={faUser} /> {reserva.usuario.nombre} {reserva.usuario.apellido}</p>
+              <p className="abel-regular"><FontAwesomeIcon icon={faMobile} /> {reserva.usuario.telefono} </p>
+              <p className="abel-regular"><FontAwesomeIcon icon={faScissors} /> {reserva.tipoDeCorte.nombre} ${reserva.tipoDeCorte.precio}</p>
               {!reserva.estado && (
                 <button onClick={() => confirmarReserva(reserva.id)}>
                   <FontAwesomeIcon icon={faCheck} />

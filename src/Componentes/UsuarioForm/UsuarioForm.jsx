@@ -13,7 +13,7 @@ const FormularioRegistro = () => {
         nombre: "",
         nombreUsuario: "",
         apellido: "",
-        email: "",
+        email: "bar@ber.com",
         telefono: "",
         contra: "",
     });
@@ -91,17 +91,6 @@ const FormularioRegistro = () => {
                         id="apellido"
                         name="apellido"
                         value={formData.apellido}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="email">Correo Electrónico</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
                         onChange={handleChange}
                         required
                     />

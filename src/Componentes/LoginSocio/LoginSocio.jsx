@@ -39,7 +39,7 @@ const LoginSocio = () => {
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
         <img src={imgLogo} alt="Logo de la empresa" className="logo" />
-        <h2>Iniciar Sesión - Socio</h2>
+        <h2>Sección Restringida</h2>
         {error && <p className="error-message">{error}</p>}
         <div className="form-group">
           <label htmlFor="username">Usuario:</label>

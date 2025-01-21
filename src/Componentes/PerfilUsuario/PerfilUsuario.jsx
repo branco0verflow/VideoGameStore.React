@@ -106,14 +106,6 @@ const PerfilUsuario = () => {
                     />
                 </label>
                 <label>
-                    <strong>Email:</strong>
-                    <input
-                        type="email"
-                        value={datosUsuario.email}
-                        onChange={(e) => setDatosUsuario({ ...datosUsuario, email: e.target.value })}
-                    />
-                </label>
-                <label>
                     <strong>Teléfono:</strong>
                     <input
                         type="tel"

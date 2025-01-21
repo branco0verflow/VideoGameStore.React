@@ -7,6 +7,25 @@
     padding: 20px;
     box-sizing: border-box;
   }
+
+  .button-rounded {
+    border: none;
+    border-radius: 25px; /* Bordes redondeados */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de texto */
+    color: white; /* Color del texto */
+    background: linear-gradient(45deg, #054ccf, #24baed); /* Degradado azul */
+    cursor: pointer; /* Cursor de mano */
+    transition: all 0.3s ease; /* Transición suave */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+  }
+  
+  .button-rounded:hover {
+    background: linear-gradient(45deg, #074a97, #0a2f67); /* Degradado azul */
+    color: #fefefe; /* Cambiar el color del texto */
+    transform: scale(1.02); /* Escala ligeramente al hacer hover */
+  }
+  
   
   .logo {
     width: 150px;
