@@ -12,6 +12,7 @@ import VerReservas from "./Componentes/VerReservas/VerReservas";
 import AdminBarberos from "./Componentes/AdminBarberos/AdminBarberos";
 import AdminCortes from "./Componentes/AdminCorteCortesia/AdminCorteCortesia";
 import CreaReservaSocio from "./Componentes/CreaReservaSocio/CreaReservaSocio";
+import CreaReservaAnonima from "./Componentes/ReservaAnonimaSocio/ReservaAnonimaSocio";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/miperfil" element={<PerfilUsuario />} />
         <Route path="/verReservas" element={<VerReservas />} />
         <Route path="/crearReserva" element={<CreaReservaSocio />} />
+        <Route path="/reservaAnonima" element={<CreaReservaAnonima />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

@@ -3,6 +3,7 @@ import { useUsuario } from '../UsuarioContext/UsuarioContext'; // Importar el co
 import './PerfilUsuario.css'; // Archivo CSS para estilos
 import imagenPerfil from '../../Images/perfil.png';
 import { useNavigate } from 'react-router-dom'; // Hook para navegación
+import VolverButton from "../VolverButton/VolverButton";
 
 const PerfilUsuario = () => {
     const { usuario } = useUsuario(); // Obtener el usuario desde el contexto
@@ -67,20 +68,17 @@ const PerfilUsuario = () => {
 
     return (
         <div className="perfil-usuario">
-            {/* Botón Volver */}
-            <button className="boton-volver" onClick={() => navigate(-1)}>
-                Volver atrás
-            </button>
-
-            <div className="imagen-container">
-                <img
-                    src={imagenPerfil}
-                    alt="Foto de perfil"
-                    className="imagen-perfil"
-                />
-            </div>
 
             <div className="datos-usuario">
+                <VolverButton fallback='/reservar' />
+                <div className="imagen-container">
+                    <img
+                        src={imagenPerfil}
+                        alt="Foto de perfil"
+                        className="imagen-perfil"
+                    />
+                </div>
+
                 <label>
                     <strong>Nombre:</strong>
                     <input
@@ -113,15 +111,17 @@ const PerfilUsuario = () => {
                         onChange={(e) => setDatosUsuario({ ...datosUsuario, telefono: e.target.value })}
                     />
                 </label>
+
+                {/* Mensaje de éxito/error */}
+                {mensaje && <p className="mensaje">{mensaje}</p>}
+
+                {/* Botón Actualizar Usuario */}
+                <button className="boton-actualizar" onClick={actualizarUsuario}>
+                    Actualizar usuario
+                </button>
             </div>
 
-            {/* Mensaje de éxito/error */}
-            {mensaje && <p className="mensaje">{mensaje}</p>}
 
-            {/* Botón Actualizar Usuario */}
-            <button className="boton-actualizar" onClick={actualizarUsuario}>
-                Actualizar usuario
-            </button>
         </div>
     );
 };

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUsuario } from "../UsuarioContext/UsuarioContext"
 import '../MisReservas/MissReservas.css';
+import VolverButton from "../VolverButton/VolverButton";
+import Cargando from "../Cargando/Cargando";
 
 const MisReservas = () => {
     const { usuario } = useUsuario(); // Obtener el usuario desde el contexto
@@ -66,7 +68,7 @@ const MisReservas = () => {
     };
 
     // Manejo de estados de carga y error
-    if (loading) return <p>Cargando...</p>;
+    if (loading) return <Cargando />;
     if (error) return <p>Error: {error}</p>;
 
     // Verificar si no hay reservas
@@ -74,10 +76,11 @@ const MisReservas = () => {
 
     return (
         <div className="mis-reservas">
+            <div className="volver-atras-reservas">
+            <VolverButton fallback='/reservar'/>
+            </div>
             <h2 className="bungee-inline-regular">Hola {usuario.nombre}, estas son tus reservas:</h2>
-            <button onClick={() => navigate(-1)} className="volver-btn">
-                Volver Atrás
-            </button>
+            
             {sinReservas ? (
                 <p className="bungee-inline-regular">Aún no tienes reservas registradas.</p>
             ) : (
@@ -85,20 +88,20 @@ const MisReservas = () => {
                     {reservas.map((reserva) => (
                         <li key={reserva.id} className="reserva-item">
                             <div className="reserva-detalle">
-                                <p>
+                                <p className="sulphur-point-bold">
                                     <strong>Barbero:</strong> {reserva.socio.nombre} {reserva.socio.apellido}
                                 </p>
-                                <p>
+                                <p className="sulphur-point-bold">
                                     <strong>Fecha:</strong> {reserva.fechaSeleccionada}
                                 </p>
-                                <p>
+                                <p className="sulphur-point-bold">
                                     <strong>Hora:</strong> {reserva.horarioSeleccionado}
                                 </p>
-                                <p>
+                                <p className="sulphur-point-bold">
                                     <strong>Estado:</strong>{" "}
                                     {reserva.estado ? "Confirmada" : "Pendiente"}
                                 </p>
-                                <p>
+                                <p className="sulphur-point-bold">
                                     <strong>Precio:</strong> {reserva.tipoDeCorte.precio}
                                 </p>
                             </div>

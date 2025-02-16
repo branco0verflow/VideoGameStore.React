@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import './AdminCorteCortesia.css';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const CortesYTiposDeCorte = () => {
     const navigate = useNavigate();
@@ -150,8 +152,8 @@ const CortesYTiposDeCorte = () => {
     return (
         <div className="cortes-y-cortesias-container">
             <div className="header">
-                <button className="btn-atras" onClick={() => navigate(-1)}>
-                    Atrás
+                <button className="volver-button" onClick={() => navigate(-1)}>
+                    <FontAwesomeIcon icon={faArrowLeft} />
                 </button>
             </div>
 

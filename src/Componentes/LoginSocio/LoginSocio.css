@@ -1,21 +1,26 @@
 /* Contenedor principal */
-.login-container {
+.login-container-principal {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items:flex-start;
     height: 100vh;
+    width: 100vw;
+    position: absolute;
   }
   
   /* Formulario */
-  .login-form {
-    background: #100008; /* Fondo negro */
-    padding: 30px 40px;
+  .login-form-principal {
+    background: linear-gradient(180deg, #001225, #170012);
+    padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2); /* Sombra blanca */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    color: #ffffff;
     text-align: center;
-    width: 100%;
-    max-width: 400px;
+    width: 100vw; /* Ajustable para pantallas pequeñas */
+    margin:0;
+  max-width: 400px;
   }
+  
   
   /* Logo */
   .logo {
@@ -48,10 +53,10 @@
     width: 100%;
     padding: 10px;
     margin-top: 5px;
-    border: 1px solid #555555; /* Borde gris oscuro */
+    border: 1px solid #03426e; /* Borde gris oscuro */
     border-radius: 5px;
     font-size: 1rem;
-    background-color: #1e1e1e; /* Fondo del input */
+    background-color: #010a10; /* Fondo del input */
     color: #ffffff; /* Texto blanco */
   }
   
@@ -65,17 +70,13 @@
     padding: 10px 15px;
     background: transparent; /* Estilo ghost */
     color: #ffffff; /* Letras blancas */
-    border: 2px solid #ffffff; /* Borde blanco */
-    border-radius: 5px;
     font-size: 1.2rem;
     cursor: pointer;
     transition: all 0.3s ease;
   }
   
   .login-button:hover {
-    background: #555555; /* Fondo gris claro al pasar el mouse */
-    color: #ffffff;
-    border-color: #dddddd;
+    background: #011e28; /* Fondo gris claro al pasar el mouse */
   }
   
   /* Mensaje de error */

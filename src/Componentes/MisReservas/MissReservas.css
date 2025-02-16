@@ -1,8 +1,8 @@
 .mis-reservas {
-    max-width: 800px;
+    max-width: 40%;
     margin: 2rem auto;
     padding: 1.5rem;
-    background-color: #f9f9f9;
+    background: linear-gradient(180deg, #001225, #170012);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
@@ -10,7 +10,7 @@
   
   .mis-reservas h2 {
     text-align: center;
-    color: #333;
+    color: #ffffff;
   }
   
   .volver-btn {
@@ -25,9 +25,6 @@
     transition: background-color 0.3s ease-in-out;
   }
   
-  .volver-btn:hover {
-    background-color: #0056b3;
-  }
   
   .reservas-list {
     list-style: none;
@@ -53,7 +50,7 @@
   
   .reserva-detalle p {
     margin: 0.2rem 0;
-    color: #555;
+    color: #ffffff;
   }
   
   .cancelar-btn {
@@ -69,4 +66,23 @@
   .cancelar-btn:hover {
     background-color: #a71d2a;
   }
-  
+
+  .volver-atras-reservas{
+    margin-bottom: 10px;
+  }
+
+  .sulphur-point-bold {
+    font-family: "Sulphur Point", serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  @media (max-width: 600px) {
+    .mis-reservas {
+      width: 90%; /* Ocupa el 90% del ancho de la pantalla */
+      max-width: 100%; /* No se desborda */
+      min-height: 90vh; /* Asegura que ocupe toda la pantalla */
+      border-radius: 0; /* Elimina bordes redondeados en móviles */
+      padding: 15px; /* Reduce padding para evitar cortes */
+    }
+  }

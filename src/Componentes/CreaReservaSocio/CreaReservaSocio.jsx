@@ -3,7 +3,7 @@ import { useSocio } from "../../Componentes/socioContext/socioContext";
 import './CreaReservaSocio.css';
 import VolverButton from "../VolverButton/VolverButton";
 import { useNavigate, useLocation } from "react-router-dom";
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { faUserPlus, faGhost } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const CreaReservaSocio = () => {
@@ -143,14 +143,17 @@ const CreaReservaSocio = () => {
       };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form>
 
             <div className="cabezal-botones">
                 <div className="boton-atras">
-                    <VolverButton />
+                    <VolverButton fallback="/VerReservas" />
                 </div>
                 <div className="CrearUser">
                     <button className="CrearUser-button" onClick={() => navigate("/registrarse")}><FontAwesomeIcon icon={faUserPlus} /></button>
+                </div>
+                <div className="CrearUser">
+                    <button className="CrearUser-button" onClick={() => navigate("/reservaAnonima", { state: { selectedDate, hora } }) }><FontAwesomeIcon icon={faGhost} /></button>
                 </div>
             </div>
 
@@ -218,7 +221,7 @@ const CreaReservaSocio = () => {
                 </select>
             </div>
 
-            <button onChange={handleBack}>Confirmar Reserva</button>
+            <button onClick={handleSubmit}>Confirmar Reserva</button>
         </form>
 
     );

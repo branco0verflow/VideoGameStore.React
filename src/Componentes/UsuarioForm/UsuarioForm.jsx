@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useUsuario } from "../../Componentes/UsuarioContext/UsuarioContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
-import VolverButton from "../VolverButton/VolverButton";
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 const FormularioRegistro = () => {
     const { setUsuario } = useUsuario();
@@ -59,7 +59,11 @@ const FormularioRegistro = () => {
     return (
         <div className="form-container">
             <form className="form" onSubmit={handleSubmit}>
-            <div className="boton-izquierda"><VolverButton/></div>
+                <div className="boton-izquierda">
+                    <button className="volver-button" onClick={() => navigate(-1)}>
+                        <FontAwesomeIcon icon={faArrowLeft} />
+                    </button>
+                </div>
                 <h2 className="bungee-inline-regular">Registro de Usuario <FontAwesomeIcon icon={faPenToSquare} /></h2>
                 {mensaje && <p className="mensaje">{mensaje}</p>}
                 <div className="form-group">

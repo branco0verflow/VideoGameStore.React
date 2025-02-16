@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import "./AdminBarberos.css";
+import './AdminBarberos.css';
+import VolverButton from "../VolverButton/VolverButton";
 
 const AdministrarBarberos = () => {
-  const navigate = useNavigate();
   const [barberos, setBarberos] = useState([]);
   const [nuevoBarbero, setNuevoBarbero] = useState({
     nombre: "",
@@ -106,9 +105,7 @@ const AdministrarBarberos = () => {
   return (
     <div className="administrar-barberos-container">
       <div className="header">
-        <button className="btn-atras" onClick={() => navigate(-1)}>
-          Atrás
-        </button>
+      <VolverButton fallback="/adminReservas" />
         <button className="btn-crear" onClick={handleCrearBarbero}>
           Crear nuevo
         </button>

@@ -59,7 +59,7 @@ const VerReservas = () => {
       console.log("Id del Socio: ", socio.id);
       setCierreCaja(data.cierreCaja);
     } catch (err) {
-      console.error(err);
+      console.error(error);
       setError("Error al calcular el cierre de caja.");
     }
   };
@@ -195,7 +195,7 @@ const VerReservas = () => {
           onChange={handleSeleccionarDia}
           className="fecha-selector"
         />
-        <VolverButton />
+        <VolverButton fallback="/adminReservas" />
       </div>
 
       <h2 className="bungee-inline-regular">Para {selectedDate}</h2>
@@ -206,8 +206,11 @@ const VerReservas = () => {
           reservas.map((reserva) => (
             <div key={reserva.id} className="reserva-item">
               <p className="abel-regular"><FontAwesomeIcon icon={faClock} /> <strong>{reserva.horarioSeleccionado}</strong> </p>
-              <p className="abel-regular"><FontAwesomeIcon icon={faUser} /> {reserva.usuario.nombre} {reserva.usuario.apellido}</p>
-              <p className="abel-regular"><FontAwesomeIcon icon={faMobile} /> {reserva.usuario.telefono} </p>
+              <p className="abel-regular">
+    <FontAwesomeIcon icon={faUser} />{" "}
+    {(reserva.usuario) ? `${reserva.usuario.nombre} ${reserva.usuario.apellido}` : reserva.nombreCliente}
+</p>
+              <p className="abel-regular"><FontAwesomeIcon icon={faMobile} /> <p>{reserva.usuario ? reserva.usuario.telefono: reserva.telefonoCliente}</p> </p>
               <p className="abel-regular"><FontAwesomeIcon icon={faScissors} /> {reserva.tipoDeCorte.nombre} ${reserva.tipoDeCorte.precio}</p>
               {!reserva.estado && (
                 <button onClick={() => confirmarReserva(reserva.id)}>

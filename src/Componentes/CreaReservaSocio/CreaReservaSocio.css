@@ -1,8 +1,9 @@
 /* Form container */
 form {
   max-width: 500px;
-  margin: 2rem auto;
-  background: #100008;
+  margin: 0 auto;
+  color: aliceblue;
+  background: linear-gradient(180deg, #001225, #170012);
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -44,7 +45,7 @@ form button {
   position: absolute;
   top: 10px;
   right: 10px;
-  left: 20px;
+  left: 10px;
   display: flex;
   align-items: center;
   gap: 10px; /* Espacio entre los elementos */

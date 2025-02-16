@@ -1,14 +1,15 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import './VolverButton.css';  // Asegúrate de importar el archivo CSS
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useNavigate } from "react-router-dom";
 
-const VolverButton = () => {
+const VolverButton = ({ fallback = "/" }) => {
   const navigate = useNavigate();
 
   const handleBack = () => {
-    navigate(-1);  // Esto hará que el usuario vuelva a la página anterior
+      navigate(fallback); // Ir a la página de fallback si no hay historial
+    
   };
 
   return (
@@ -19,3 +20,4 @@ const VolverButton = () => {
 };
 
 export default VolverButton;
+

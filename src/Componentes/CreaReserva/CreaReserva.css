@@ -1,28 +1,86 @@
 /* Fondo general con fondo oscuro */
-.container-gral {
-  margin-top: 1rem;
+.background-carousel {
+  position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
 }
+
+.background-half {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.5s ease-in-out;
+  filter: brightness(0.7); /* Opacidad gris */
+}
+
+.left {
+  border-right: 2px solid rgba(13, 12, 12, 0.2); /* Línea divisoria */
+}
+
+.right {
+  border-left: 2px solid rgba(13, 12, 12, 0.2);
+}
+
+.container-gral {
+  display: flex;
+    justify-content: center;
+    align-items:flex-start;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+}
+
+
+/* Estilos del formulario */
+  .crearReservaClass  {
+    max-height: 100vh; /* Limita la altura al 80% de la pantalla */
+  overflow-y: auto;  /* Activa el scroll vertical */
+  background: linear-gradient(180deg, #001225, #170012);
+  color: #fff;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  width: 100vw;
+  margin: 0;
+  box-shadow: 0 4px 8px rgba(2, 74, 145, 0.3);
+  z-index: 10;
+}
+
+.crearReservaClass {
+  scrollbar-width: none; /* Para Firefox */
+}
+
+.crearReservaClass::-webkit-scrollbar {
+  display: none; /* Para Chrome, Edge y Safari */
+}
+
+
+@media (max-width: 768px) {
+  .form-container {
+    width: 100vw;
+    min-height: 100vh; /* Ocupa toda la altura */
+    background-color: white; /* Fondo sólido para ocultar la imagen */
+    display: flex;
+    border-radius: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto; /* Permite scroll si es necesario */
+  }
+
+  body {
+    overflow: auto; /* Habilita el scroll si el contenido lo requiere */
+  }
+}
+
+
 
  /* Logo */
  form .logo1 {
   width: 30%;
-  align-items: center;
   margin-bottom: 20px;
-}
-
-/* Estilos del formulario */
-form {
-  background: #100008;
-  color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  font-family: Arial, sans-serif;
-  width: 500px;
-  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
-  z-index: 10;
 }
 
 .bungee-inline-regular {
@@ -76,7 +134,7 @@ form p {
 
 /* Campo seleccionado */
 .socio-card.seleccionado {
-  border: 3px solid rgb(240, 245, 240);
+  border: 3px solid rgb(75, 71, 74);
 }
 
 /* Estilos generales de campo */
@@ -101,8 +159,8 @@ form p {
 form button {
   width: 100%;
   padding: 10px;
-  background: darkgreen;
-  color: #1a0505;
+  background: rgb(44, 22, 72);
+  color: #e1e0e2;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -112,7 +170,8 @@ form button {
 }
 
 form button:hover {
-  background: #006400;
+  background: #010b11;
+  color: white;
 }
 
 /* Estilos generales para el switch */
@@ -174,11 +233,6 @@ form button:hover {
   margin-top: 20px;
 }
 
-.button-group {
-  display: flex;
-  flex-direction: column;
-  gap: 15px; /* Espaciado entre los botones */
-}
 
 .reservas-btn,
 .perfil-btn,
@@ -217,4 +271,68 @@ form button:hover {
 .salir-btn:hover {
   background: #ff4d4d; /* Fondo rojo al pasar el ratón */
   color: #ffffff; /* Texto blanco */
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.back-btn, .next-btn {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  gap: 8px; /* Espacio entre icono y texto */
+  padding: 10px 15px;
+  border: none;
+  background-color: #15304c;
+  color: rgb(234, 234, 234);
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.back-btn {
+  display: flex;
+  background-color: #15304c;
+  align-items: center;
+  text-align: center;
+}
+
+.next-btn {
+  background-color: #0c7c2d;
+}
+
+.back-btn:hover, .next-btn:hover {
+  opacity: 0.8;
+}
+
+.siguienteDiv{
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.siguiente{
+  max-width: 40%;
+}
+
+.reserva-card {
+  background: #081727;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 10px;
+  font-size: 16px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.reserva-card p {
+  margin: 8px 0;
+}
+
+.abel-regular {
+  font-family: "Abel", serif;
+  font-weight: 800px;
+  font-style: normal;
 }

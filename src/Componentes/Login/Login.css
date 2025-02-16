@@ -1,113 +1,66 @@
-/* Contenedor principal */
-.login-container {
+/* Fondo dividido estilo carrusel */
+.background-carousel {
+  position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Mantiene la altura completa de la pantalla */
-  width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
 }
-  
-  /* Formulario */
-  .login-form {
-    background: #100008; /* Fondo negro */
-    padding: 30px 20px; /* Ajusta el padding para pantallas pequeñas */
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2); /* Sombra blanca */
-    text-align: center;
-    width: 100%; /* Asegura que el formulario ocupe todo el ancho */
-    height: auto; /* Permite que la altura se ajuste automáticamente */
-    max-width: none; /* Elimina el límite de ancho máximo */
+
+.background-half {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.5s ease-in-out;
+  filter: brightness(0.7); /* Opacidad gris */
+}
+
+.left {
+  border-right: 2px solid rgba(13, 12, 12, 0.2); /* Línea divisoria */
+}
+
+.right {
+  border-left: 2px solid rgba(13, 12, 12, 0.2);
+}
+
+.login-container-principal {
+  scrollbar-width: none; /* Para Firefox */
+}
+
+.login-container-principal::-webkit-scrollbar {
+  display: none; /* Para Chrome, Edge y Safari */
+}
+
+/* Contenedor del formulario */
+.login-container-principal {
+  position: absolute;
+  max-height: 100vh; /* Limita la altura al 80% de la pantalla */
+  overflow-y: auto;  /* Activa el scroll vertical */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%; /* Ajustable para pantallas pequeñas */
+  max-width: 600px;
+}
+
+/* Formulario */
+.login-form-principal {
+  max-width: 100vh;
+  background: linear-gradient(180deg, #001225, #170012);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  text-align: center;
 }
 
 @media (max-width: 600px) {
-  .login-form {
-      padding: 20px; /* Reduce el padding en pantallas pequeñas */
+  .login-form-principal {
+    width: 90%; /* Ocupa el 90% del ancho de la pantalla */
+    max-width: 100%; /* No se desborda */
+    min-height: 90vh; /* Asegura que ocupe toda la pantalla */
+    border-radius: 0; /* Elimina bordes redondeados en móviles */
+    padding: 15px; /* Reduce padding para evitar cortes */
   }
 }
-  
-  /* Logo */
-  .logo {
-    width: 60%;
-    margin-bottom: 20px;
-    align-items: center;
-  }
-  
-  /* Encabezado */
-  h2 {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    color: #6c6767; /* Letras blancas */
-  }
-  
-  /* Grupo de formulario */
-  .form-group {
-    text-align: left;
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    font-size: 1rem;
-    color: #dddddd; /* Letras claras */
-  }
 
-  
-  
-  .form-group input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #555555; /* Borde gris oscuro */
-    border-radius: 5px;
-    font-size: 1rem;
-    background-color: #1e1e1e; /* Fondo del input */
-    color: #ffffff; /* Texto blanco */
-  }
-  
-  .form-group input::placeholder {
-    color: #bbbbbb; /* Placeholder gris claro */
-  }
-  
-  /* Botón */
-  .login-button {
-    width: 100%;
-    padding: 10px 15px;
-    background: transparent; /* Estilo ghost */
-    color: #ffffff; /* Letras blancas */
-    border: 2px solid #ffffff; /* Borde blanco */
-    border-radius: 5px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .login-button:hover {
-    background: #555555; /* Fondo gris claro al pasar el mouse */
-    color: #ffffff;
-    border-color: #dddddd;
-  }
-  
-  /* Mensaje de error */
-  .error-message {
-    color: #ff4c4c; /* Rojo claro */
-    font-size: 0.9rem;
-    margin-bottom: 15px;
-  }
-  
-  /* Enlaces */
-  .links-container {
-    margin-top: 20px;
-    font-size: 0.9rem;
-    color: #dddddd;
-  }
-  
-  .link {
-    color: #1e90ff; /* Azul claro */
-    cursor: pointer;
-    text-decoration: none; /* Sin subrayado */
-    transition: color 0.3s ease;
-  }
-  
-  .link:hover {
-    color: #00bfff; /* Azul más claro al pasar el mouse */
-  }
-  
+
