@@ -37,7 +37,7 @@
 /* Botones de horario */
 .horario-boton {
   background-color: transparent;
-  border: 2px solid #007bff; /* Color del borde */
+  border: 2px solid #009dff; /* Color del borde */
   color: #e7edf3; /* Color del texto */
   padding: 10px 20px;
   border-radius: 20px; /* Hace los botones ovalados */
@@ -50,8 +50,8 @@
 
 /* Efecto hover para el botón */
 .horario-boton:hover {
-  background-color: #032864;
-  color: rgb(250, 249, 249);
+  background-color: #171617;
+  color: rgb(255, 255, 255);
 }
 
 /* Responsivo: ajustar tamaño en pantallas pequeñas */
@@ -61,6 +61,51 @@
     padding: 8px 16px;
   }
 }
+
+.botonZ {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  border-width: 2px;
+}
+
+.boton-verde {
+  border: 2px solid #03173a;
+  color: #dae6dd;
+}
+
+.boton-verde:hover {
+  background-color: transparent;
+  color: rgb(2, 67, 27);
+}
+
+.boton-naranja {
+  border: 2px solid #3d3628;
+  color: #f9fbe5;
+}
+
+.boton-naranja:hover {
+  background-color: transparent;
+  color: rgb(240, 236, 227);
+}
+
+.boton-rojo {
+  border: 2px solid #90030f;
+  color: #721821;
+}
+
+.boton-rojo:hover {
+  background-color: #960e1b;
+  color: rgb(235, 215, 215);
+}
+
 
   
   .botones-container {
@@ -147,6 +192,35 @@
     font-weight: 400;
     font-style: normal;
   }
+
+  .boton-horarios {
+    background: transparent;
+    color: #fff;
+    border: 2px solid #024685;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Efecto de giro al pasar el mouse */
+  .boton-horarios:hover {
+    background: rgba(235, 230, 230, 0.1);
+    color: #73abcd;
+  }
+  
+  /* Deshabilitado */
+  .boton-horarios:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: #ccc;
+    color: #ccc;
+  }
+  
   
   
   

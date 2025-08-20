@@ -13,6 +13,8 @@ import AdminBarberos from "./Componentes/AdminBarberos/AdminBarberos";
 import AdminCortes from "./Componentes/AdminCorteCortesia/AdminCorteCortesia";
 import CreaReservaSocio from "./Componentes/CreaReservaSocio/CreaReservaSocio";
 import CreaReservaAnonima from "./Componentes/ReservaAnonimaSocio/ReservaAnonimaSocio";
+import Cargando from "./Componentes/Cargando/Cargando";
+import CierresCaja from "./Componentes/CierreCajaEntreFechas/CierreCajaEntreFechas";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
         <Route path="/verReservas" element={<VerReservas />} />
         <Route path="/crearReserva" element={<CreaReservaSocio />} />
         <Route path="/reservaAnonima" element={<CreaReservaAnonima />} />
+        <Route path="/cierresEntreFechas" element={<CierresCaja />} />
+        <Route path="/cargando" element={<Cargando/>} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

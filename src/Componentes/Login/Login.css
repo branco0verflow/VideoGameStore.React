@@ -34,6 +34,7 @@
 /* Contenedor del formulario */
 .login-container-principal {
   position: absolute;
+  margin-top: 2%;
   max-height: 100vh; /* Limita la altura al 80% de la pantalla */
   overflow-y: auto;  /* Activa el scroll vertical */
   top: 50%;

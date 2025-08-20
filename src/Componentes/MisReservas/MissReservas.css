@@ -1,7 +1,12 @@
+.contenedor-mis-reservas{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .mis-reservas {
     max-width: 40%;
-    margin: 2rem auto;
-    padding: 1.5rem;
+    padding: 2rem;
     background: linear-gradient(180deg, #001225, #170012);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

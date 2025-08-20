@@ -45,29 +45,26 @@
     max-width: 300px;
   }
   
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: #fff;
-    transition: background-color 0.3s ease;
-  }
   
-  button:hover {
-    background-color: #0056b3;
-  }
   
   .logout-button {
     position: absolute;
     bottom: 20px;
     right: 20px;
-    background-color: #dc3545;
-  }
-  
-  .logout-button:hover {
-    background-color: #a71d2a;
-  }
+    background: linear-gradient(135deg, #621e20, #db0c3c);
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.logout-button:hover {
+    transform: scale(1.03);
+}
+
   

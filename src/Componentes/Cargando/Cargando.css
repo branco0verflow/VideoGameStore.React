@@ -1,0 +1,27 @@
+html, body {
+    height: 100%; /* Asegúrate de que el body ocupe toda la altura de la ventana */
+    margin: 0; /* Elimina el margen por defecto */
+}
+
+.spinner-container {
+    display: flex; /* Usamos flexbox para centrar el contenido */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    position: relative; /* Necesario para posicionar la imagen sobre el spinner */
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+}
+
+.spinner-grow {
+    width: 10rem; /* Ajusta el tamaño del spinner según sea necesario */
+    height: 10rem; /* Ajusta el tamaño del spinner según sea necesario */
+}
+
+.overlay-image {
+    position: absolute; /* Posiciona la imagen sobre el spinner */
+    width: 6rem; /* Debe ser del mismo tamaño que el spinner */
+    height: 4rem; /* Debe ser del mismo tamaño que el spinner */
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta la posición para centrar */
+    pointer-events: none; /* Asegúrate de que la imagen no interfiera con el spinner */
+}

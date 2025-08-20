@@ -4,6 +4,7 @@ import './PerfilUsuario.css'; // Archivo CSS para estilos
 import imagenPerfil from '../../Images/perfil.png';
 import { useNavigate } from 'react-router-dom'; // Hook para navegación
 import VolverButton from "../VolverButton/VolverButton";
+import Cargando from '../Cargando/Cargando';
 
 const PerfilUsuario = () => {
     const { usuario } = useUsuario(); // Obtener el usuario desde el contexto
@@ -63,7 +64,7 @@ const PerfilUsuario = () => {
         }
     };
 
-    if (loading) return <p>Cargando...</p>;
+    if (loading) return <Cargando />;
     if (error) return <p>Error: {error}</p>;
 
     return (

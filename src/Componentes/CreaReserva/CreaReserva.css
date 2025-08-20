@@ -12,11 +12,13 @@
   background-size: cover;
   background-position: center;
   transition: background-image 0.5s ease-in-out;
-  filter: brightness(0.7); /* Opacidad gris */
+  filter: brightness(0.7);
+  /* Opacidad gris */
 }
 
 .left {
-  border-right: 2px solid rgba(13, 12, 12, 0.2); /* Línea divisoria */
+  border-right: 2px solid rgba(13, 12, 12, 0.2);
+  /* Línea divisoria */
 }
 
 .right {
@@ -25,18 +27,26 @@
 
 .container-gral {
   display: flex;
-    justify-content: center;
-    align-items:flex-start;
-    height: 100vh;
-    width: 100vw;
-    position: absolute;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+}
+
+.contenedor-de-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
 /* Estilos del formulario */
-  .crearReservaClass  {
-    max-height: 100vh; /* Limita la altura al 80% de la pantalla */
-  overflow-y: auto;  /* Activa el scroll vertical */
+.crearReservaClass {
+  max-height: 100vh;
+  /* Limita la altura al 80% de la pantalla */
+  overflow-y: auto;
+  /* Activa el scroll vertical */
   background: linear-gradient(180deg, #001225, #170012);
   color: #fff;
   border-radius: 10px;
@@ -48,37 +58,53 @@
 }
 
 .crearReservaClass {
-  scrollbar-width: none; /* Para Firefox */
+  scrollbar-width: none;
+  /* Para Firefox */
 }
 
 .crearReservaClass::-webkit-scrollbar {
-  display: none; /* Para Chrome, Edge y Safari */
+  display: none;
+  /* Para Chrome, Edge y Safari */
 }
 
 
-@media (max-width: 768px) {
-  .form-container {
-    width: 100vw;
-    min-height: 100vh; /* Ocupa toda la altura */
-    background-color: white; /* Fondo sólido para ocultar la imagen */
+@media (min-width: 368px) {
+  .container-gral {
+    max-width: 100vw;
+    max-height: 100vh;
+    margin: 0;
+    /* Ocupa toda la altura */
+    background-color: transparent;
+    /* Fondo sólido para ocultar la imagen */
     display: flex;
-    border-radius: none;
+    border-radius: 0;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-    overflow-y: auto; /* Permite scroll si es necesario */
+    padding: 0px;
+    overflow-y: auto;
+    /* Permite scroll si es necesario */
   }
 
-  body {
-    overflow: auto; /* Habilita el scroll si el contenido lo requiere */
-  }
+  
 }
 
+@media (max-width: 468px) {
 
+.crearReservaClass{
+  
+    max-width: 100vw;
+    max-height: 100vh;
+    background-color: transparent;
+    
+    border-radius: 0;
+    
+  
+}
+}
 
- /* Logo */
- form .logo1 {
+/* Logo */
+form .logo1 {
   width: 30%;
   margin-bottom: 20px;
 }
@@ -106,54 +132,125 @@ form p {
 /* Contenedor de socios */
 .socios-container {
   display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: start;
 }
 
-/* Tarjetas de socios */
+/* Tarjeta de socio */
 .socio-card {
-  cursor: pointer;
+  position: relative;
+  width: 160px;
+  height: 220px;
+  background: linear-gradient(to bottom, #0d1b2a 50%, #0b021a 50%);
+  border-radius: 2px;
+  overflow: hidden;
   text-align: center;
-  padding: 10px;
-  border-radius: 5px;
-  transition: border 1.3s;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Imagen rectangular en la parte superior */
 .socio-card img {
-  width: 150px;
-  height: 150px;
-  border-radius: 10px;
+  width: 100%;
+  height: 85%;
   object-fit: cover;
+  border-bottom: 4px solid #ffffff;
 }
 
-.socio-card p {
-  margin-top: 10px;
-  font-size: 14px;
+/* Contenedor del nombre con fondo oscuro */
+.socio-card .nombre-barbero {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  font-family: "Permanent Marker", serif;
+  font-weight: 400;
+  font-style: normal;
+  padding: 5px 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Efecto al pasar el mouse */
+.socio-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4);
 }
 
 /* Campo seleccionado */
 .socio-card.seleccionado {
-  border: 3px solid rgb(75, 71, 74);
+  border: 1px solid #041a44;
+  box-shadow: 0px 0px 10px #013667;
 }
 
-/* Estilos generales de campo */
+
+/* Contenedor del campo */
 .field {
   margin-bottom: 20px;
+  display: flex;
+  color: white;
+  flex-direction: column;
 }
 
+/* Etiqueta con estilo profesional */
 .field label {
-  display: block;
-  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #ffffff;
 }
 
+
+
+/* Estilos generales para input y select */
 .field input,
 .field select {
   width: 100%;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 12px;
+  color: white;
+  border-radius: 8px;
   border: 1px solid #ccc;
+  background: #f9f9f9;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+/* Efecto al enfocar */
+.field input:focus,
+.field select:focus {
+  border-color: #007bff;
+  background: rgb(26, 24, 24);
+  color: rgb(255, 255, 255);
+  box-shadow: 0px 3px 8px rgba(3, 72, 146, 0.3);
+  outline: none;
+}
+
+
+/* Personalización del select (dropdown) */
+.field select {
+  appearance: none;
+  background: url('https://cdn-icons-png.flaticon.com/512/32/32195.png') no-repeat right 12px center;
+  background-size: 14px;
+  padding-right: 35px;
+  cursor: pointer;
+}
+
+/* Efecto hover */
+.field input:hover,
+.field select:hover {
+  border-color: #0056b3;
+}
+
+/* Efecto cuando está deshabilitado */
+.field input:disabled,
+.field select:disabled {
+  background: #010c17;
+  cursor: not-allowed;
+}
+
+
 
 /* Botón */
 form button {
@@ -178,8 +275,10 @@ form button:hover {
 .switch {
   position: relative;
   display: inline-block;
-  width: 50px; /* Ancho del switch */
-  height: 24px; /* Altura del switch */
+  width: 50px;
+  /* Ancho del switch */
+  height: 24px;
+  /* Altura del switch */
 }
 
 /* Ocultar el checkbox original */
@@ -197,39 +296,52 @@ form button:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc; /* Color del fondo del switch */
-  transition: .4s; /* Transición suave */
-  border-radius: 34px; /* Bordes redondeados */
+  background-color: #ccc;
+  /* Color del fondo del switch */
+  transition: .4s;
+  /* Transición suave */
+  border-radius: 34px;
+  /* Bordes redondeados */
 }
 
 /* Estilo del slider cuando el checkbox está activado */
-.switch input:checked + .slider {
-  background-color: #2196F3; /* Color del fondo cuando está activado */
+.switch input:checked+.slider {
+  background-color: #2196F3;
+  /* Color del fondo cuando está activado */
 }
 
 /* Estilo del círculo dentro del switch */
 .slider:before {
   position: absolute;
   content: "";
-  height: 16px; /* Altura del círculo */
-  width: 16px; /* Ancho del círculo */
-  left: 4px; /* Espaciado desde la izquierda */
-  bottom: 4px; /* Espaciado desde la parte inferior */
-  background-color: white; /* Color del círculo */
-  border-radius: 50%; /* Hacer el círculo redondo */
-  transition: .4s; /* Transición suave */
+  height: 16px;
+  /* Altura del círculo */
+  width: 16px;
+  /* Ancho del círculo */
+  left: 4px;
+  /* Espaciado desde la izquierda */
+  bottom: 4px;
+  /* Espaciado desde la parte inferior */
+  background-color: white;
+  /* Color del círculo */
+  border-radius: 50%;
+  /* Hacer el círculo redondo */
+  transition: .4s;
+  /* Transición suave */
 }
 
 /* Estilo del círculo cuando el checkbox está activado */
-.switch input:checked + .slider:before {
-  transform: translateX(26px); /* Mover el círculo a la derecha */
+.switch input:checked+.slider:before {
+  transform: translateX(26px);
+  /* Mover el círculo a la derecha */
 }
 
 .mis-reservas-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: transparent; /* Asegura fondo transparente */
+  background: transparent;
+  /* Asegura fondo transparente */
   margin-top: 20px;
 }
 
@@ -237,40 +349,56 @@ form button:hover {
 .reservas-btn,
 .perfil-btn,
 .salir-btn {
-  background: transparent; /* Fondo transparente */
-  border: 2px solid #ffffff; /* Borde blanco */
-  color: #ffffff; /* Texto blanco */
-  padding: 10px 20px; /* Espaciado interno */
-  font-size: 16px; /* Tamaño del texto */
+  background: transparent;
+  /* Fondo transparente */
+  border: 2px solid #ffffff;
+  /* Borde blanco */
+  color: #ffffff;
+  /* Texto blanco */
+  padding: 10px 20px;
+  /* Espaciado interno */
+  font-size: 16px;
+  /* Tamaño del texto */
   font-family: "Arial", sans-serif;
-  border-radius: 25px; /* Bordes redondeados */
+  border-radius: 25px;
+  /* Bordes redondeados */
   cursor: pointer;
-  transition: all 0.3s ease-in-out; /* Transiciones suaves */
+  transition: all 0.3s ease-in-out;
+  /* Transiciones suaves */
 }
 
 .reservas-btn:hover,
 .perfil-btn:hover,
 .salir-btn:hover {
-  background: #ffffff; /* Fondo blanco al pasar el ratón */
-  color: #000000; /* Texto negro al pasar el ratón */
-  border-color: #000000; /* Borde negro al pasar el ratón */
-  transform: scale(1.05); /* Efecto de ampliación */
+  background: #ffffff;
+  /* Fondo blanco al pasar el ratón */
+  color: #000000;
+  /* Texto negro al pasar el ratón */
+  border-color: #000000;
+  /* Borde negro al pasar el ratón */
+  transform: scale(1.05);
+  /* Efecto de ampliación */
 }
 
 .reservas-btn:active,
 .perfil-btn:active,
 .salir-btn:active {
-  transform: scale(0.95); /* Efecto de clic */
+  transform: scale(0.95);
+  /* Efecto de clic */
 }
 
 .salir-btn {
-  border: 2px dashed #ff4d4d; /* Borde especial para botón Salir */
-  color: #ff4d4d; /* Texto rojo */
+  border: 2px dashed #ff4d4d;
+  /* Borde especial para botón Salir */
+  color: #ff4d4d;
+  /* Texto rojo */
 }
 
 .salir-btn:hover {
-  background: #ff4d4d; /* Fondo rojo al pasar el ratón */
-  color: #ffffff; /* Texto blanco */
+  background: #ff4d4d;
+  /* Fondo rojo al pasar el ratón */
+  color: #ffffff;
+  /* Texto blanco */
 }
 
 .button-container {
@@ -281,11 +409,13 @@ form button:hover {
   margin-top: 20px;
 }
 
-.back-btn, .next-btn {
+.back-btn,
+.next-btn {
   display: flex;
   align-items: center;
   text-align: center;
-  gap: 8px; /* Espacio entre icono y texto */
+  gap: 8px;
+  /* Espacio entre icono y texto */
   padding: 10px 15px;
   border: none;
   background-color: #15304c;
@@ -305,34 +435,92 @@ form button:hover {
   background-color: #0c7c2d;
 }
 
-.back-btn:hover, .next-btn:hover {
+.back-btn:hover,
+.next-btn:hover {
   opacity: 0.8;
 }
 
-.siguienteDiv{
+.siguienteDiv {
   display: flex;
   flex-direction: row-reverse;
 }
 
-.siguiente{
+.siguiente {
   max-width: 40%;
 }
 
 .reserva-card {
-  background: #081727;
-  border-radius: 10px;
+  background: #0d1b2a; /* Azul oscuro más profesional */
+  border-radius: 12px;
   padding: 20px;
-  margin-top: 10px;
+  margin-top: 15px;
   font-size: 16px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
+  color: #ffffff; /* Texto blanco para contraste */
+  border: 1px solid #1b263b;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espaciado uniforme */
 }
 
 .reserva-card p {
-  margin: 8px 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
 }
+
+.reserva-card strong {
+  color: #d79fee; /* Color dorado para resaltar los títulos */
+}
+
+.reserva-card .icon {
+  font-size: 18px;
+  color: #702178; /* Iconos del mismo color que los títulos */
+}
+
 
 .abel-regular {
   font-family: "Abel", serif;
   font-weight: 800px;
   font-style: normal;
 }
+
+
+/* Contenedor para DatePicker con ícono */
+.datepicker-container {
+  position: relative;
+  width: 50%;
+  display: flex;
+  align-items: center;
+}
+
+/* Input del DatePicker */
+.react-datepicker__input-container input {
+  color: white;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #011c95;
+  background: #1a1818; /* Fondo oscuro */
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+/* Ícono de calendario */
+.calendar-icon {
+  position: absolute;
+  right: 10px; /* Ubicarlo dentro del input */
+  color: white;
+  font-size: 19px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* Cambia color al pasar el mouse */
+.calendar-icon:hover {
+  color: #9fd8f9;
+}
+

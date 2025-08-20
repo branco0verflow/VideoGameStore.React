@@ -26,6 +26,11 @@ const AdminReservas = () => {
           </button>
         )}
         {socio?.admin && (
+          <button className="button-rounded" onClick={() => navigate("/cierresEntreFechas")}>
+            Contaduría
+          </button>
+        )}
+        {socio?.admin && (
           <button className="button-rounded" onClick={() => navigate("/adminCortes")}>
             Administrar Cortes
           </button>

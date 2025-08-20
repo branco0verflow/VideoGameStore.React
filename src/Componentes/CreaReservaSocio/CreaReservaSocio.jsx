@@ -108,6 +108,7 @@ const CreaReservaSocio = () => {
             tipoDeCorte: { id: tipoDeCorteSeleccionado },
             usuario: { id: usuarioSeleccionado.id },
             estado: false,
+            noMonetario: false,
             cortesia: { id: cortesiaActiva ? cortesiaSeleccionada : 1 },
             socio: { id: socio.id }
         };
@@ -147,14 +148,9 @@ const CreaReservaSocio = () => {
 
             <div className="cabezal-botones">
                 <div className="boton-atras">
-                    <VolverButton fallback="/VerReservas" />
+                    <VolverButton fallback="/reservaAnonima" />
                 </div>
-                <div className="CrearUser">
-                    <button className="CrearUser-button" onClick={() => navigate("/registrarse")}><FontAwesomeIcon icon={faUserPlus} /></button>
-                </div>
-                <div className="CrearUser">
-                    <button className="CrearUser-button" onClick={() => navigate("/reservaAnonima", { state: { selectedDate, hora } }) }><FontAwesomeIcon icon={faGhost} /></button>
-                </div>
+                
             </div>
 
 

@@ -6,6 +6,10 @@ import imgLogo from '../../Images/logo.png';
 import imag1 from '../../Images/Albo1.jpg';
 import imag2 from '../../Images/Albo2.jpg';
 import imag3 from '../../Images/Albo3.jpg';
+import Cargando from "../Cargando/Cargando";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { FaUser, FaCalendarAlt, FaClock } from "react-icons/fa";
 
 const FormularioReserva = () => {
   const { usuario } = useUsuario(); // Obtener el usuario desde el contexto
@@ -24,6 +28,7 @@ const FormularioReserva = () => {
   const [tipoDeCorteSeleccionado, setTipoDeCorteSeleccionado] = useState(null);
   const [cortesiaSeleccionada, setCortesiaSeleccionada] = useState(null);
   const [cortesiaActiva, setCortesiaActiva] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [leftImageIndex, setLeftImageIndex] = useState(0);
   const [rightImageIndex, setRightImageIndex] = useState(0);
@@ -39,7 +44,7 @@ const FormularioReserva = () => {
       .catch((error) => console.error("Error al cargar las cortesías:", error));
   }, []);
 
-  
+
 
 
   useEffect(() => {
@@ -73,6 +78,7 @@ const FormularioReserva = () => {
         setSocios(data);
       } catch (err) {
         setError("Error al cargar la lista de socios");
+        setLoading(false);
       }
     };
 
@@ -93,6 +99,7 @@ const FormularioReserva = () => {
           }
           const data = await response.json();
           setHorarios(data); // Actualiza los horarios disponibles
+          console.log(fechaSeleccionada);
         } catch (err) {
           setError("Error al cargar los horarios disponibles");
           console.error(err); // Para depurar el error
@@ -105,11 +112,11 @@ const FormularioReserva = () => {
 
 
 
+
+
   // Manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-
 
     const reserva = {
       fechaSeleccionada,
@@ -117,12 +124,10 @@ const FormularioReserva = () => {
       tipoDeCorte: { id: tipoDeCorteSeleccionado }, // Solo el ID seleccionado
       usuario,
       estado: false,
+      noMonetario: false,
       cortesia: { id: cortesiaActiva ? cortesiaSeleccionada : 1 },
       socio: { id: socioSeleccionado },
     };
-
-
-
 
 
     if (!socioSeleccionado || !fechaSeleccionada || !horarioSeleccionado) {
@@ -176,13 +181,12 @@ const FormularioReserva = () => {
   ];
 
   useEffect(() => {
-      const interval = setInterval(() => {
-        setLeftImageIndex((prevIndex) => (prevIndex + 1) % leftImages.length);
-        setRightImageIndex((prevIndex) => (prevIndex + 1) % rightImages.length);
-      }, 7000);
-      return () => clearInterval(interval);
-    }, [leftImages.length, rightImages.length]);
-
+    const interval = setInterval(() => {
+      setLeftImageIndex((prevIndex) => (prevIndex + 1) % leftImages.length);
+      setRightImageIndex((prevIndex) => (prevIndex + 1) % rightImages.length);
+    }, 7000);
+    return () => clearInterval(interval);
+  }, [leftImages.length, rightImages.length]);
 
 
   return (
@@ -197,13 +201,16 @@ const FormularioReserva = () => {
       ></div>
       <div className="container-gral">
         <form className="crearReservaClass" onSubmit={handleSubmit}>
-          <div className="class-logo">
+          <div className="contenedor-de-logo">
+
             <img src={imgLogo} alt="Logo de la empresa" className="logo1" />
+
           </div>
           <h2 className="bungee-inline-regular">Registrar Reserva</h2>
 
           {paso === 1 && (
             <>
+              {loading && <Cargando />} {/* Muestra un spinner o mensaje de carga */}
               <div className="field">
                 <label>Seleccione barbero:</label>
                 <div className="socios-container">
@@ -213,21 +220,40 @@ const FormularioReserva = () => {
                       className={`socio-card ${socioSeleccionado === socio.id ? "seleccionado" : ""}`}
                       onClick={() => setSocioSeleccionado(socio.id)}
                     >
-                      <img src={socio.imagenUrl} alt={socio.nombre} />
-                      <p>{socio.nombre} {socio.apellido}</p>
+                      <img src={socio.imagenUrl} alt={socio.nombre} onLoad={() => setLoading(false)} />
+                      <div className="nombre-barbero">{socio.nombre} {socio.apellido}</div>
                     </div>
                   ))}
                 </div>
+
               </div>
+
+
+
 
               <div className="field">
                 <label>Seleccionar Fecha:</label>
-                <input
-                  type="date"
-                  value={fechaSeleccionada}
-                  onChange={(e) => setFechaSeleccionada(e.target.value)}
-                />
+                <div className="datepicker-container">
+                  <DatePicker
+                    selected={fechaSeleccionada ? new Date(`${fechaSeleccionada}T00:00:00`) : null} // Ajusta la fecha a medianoche local
+                    onChange={(date) => {
+                      const yyyy = date.getFullYear();
+                      const mm = String(date.getMonth() + 1).padStart(2, "0"); // getMonth() es 0-based
+                      const dd = String(date.getDate()).padStart(2, "0");
+                      setFechaSeleccionada(`${yyyy}-${mm}-${dd}`);
+                    }}
+                    dateFormat="yyyy-MM-dd"
+                    minDate={new Date()} // Evita fechas pasadas
+                    filterDate={(date) => date.getDay() !== 0 && date.getDay() !== 1} // No permite domingos y lunes
+                    placeholderText="AAAA/MM/DD"
+                  />
+
+                  <FaCalendarAlt className="calendar-icon" />
+                </div>
               </div>
+
+
+
 
               <div className="siguienteDiv">
                 <button className="siguiente" type="button" onClick={() => setPaso(2)} disabled={!socioSeleccionado || !fechaSeleccionada}>
@@ -239,7 +265,7 @@ const FormularioReserva = () => {
                 <div className="button-group">
                   <button className="reservas-btn" onClick={() => navigate("/reservasCreadas")}>Mis Reservas</button>
                   <button className="perfil-btn" onClick={() => navigate("/miPerfil")}>Ver mi Perfil</button>
-                  <button className="salir-btn" onClick={() => navigate(-1)}>Salir</button>
+                  <button className="salir-btn" onClick={() => navigate("/")}>Salir</button>
                 </div>
               </div>
 
@@ -257,7 +283,7 @@ const FormularioReserva = () => {
                 >
                   <option value="">Seleccione un horario</option>
                   {horarios.map((horario, index) => (
-                    <option key={index} value={horario}>{horario}</option>
+                    <option key={index} value={horario}>{horario.split(":").slice(0, 2).join(":")}</option>
                   ))}
                 </select>
               </div>
@@ -316,7 +342,7 @@ const FormularioReserva = () => {
                 <div className="button-group">
                   <button className="reservas-btn" onClick={() => navigate("/reservasCreadas")}>Mis Reservas</button>
                   <button className="perfil-btn" onClick={() => navigate("/miPerfil")}>Ver mi Perfil</button>
-                  <button className="salir-btn" onClick={() => navigate(-1)}>Saliyhryrytur</button>
+                  <button className="salir-btn" onClick={() => navigate("/")}>Salir</button>
                 </div>
               </div>
             </>
@@ -326,9 +352,15 @@ const FormularioReserva = () => {
             <>
               <h3 className="abel-regular">Confirma los datos</h3>
               <div className="reserva-card">
-                <p className="abel-regular"><strong>Barbero:</strong> {socios.find(s => s.id === socioSeleccionado)?.nombre || "No especificado"}</p>
-                <p className="abel-regular"><strong>Fecha:</strong> {fechaSeleccionada || "No especificado"}</p>
-                <p className="abel-regular"><strong>Horario:</strong> {horarioSeleccionado || "No especificado"}</p>
+                <p className="abel-regular">
+                  <FaUser className="icon" /> <strong>Barbero:</strong> {socios.find(s => s.id === socioSeleccionado)?.nombre || "No especificado"}
+                </p>
+                <p className="abel-regular">
+                  <FaCalendarAlt className="icon" /> <strong>Fecha:</strong> {fechaSeleccionada || "No especificado"}
+                </p>
+                <p className="abel-regular">
+                  <FaClock className="icon" /> <strong>Horario:</strong> {horarioSeleccionado.split(":").slice(0, 2).join(":") || "No especificado"}
+                </p>
               </div>
 
 
@@ -345,7 +377,7 @@ const FormularioReserva = () => {
                 <div className="button-group">
                   <button className="reservas-btn" onClick={() => navigate("/reservasCreadas")}>Mis Reservas</button>
                   <button className="perfil-btn" onClick={() => navigate("/miPerfil")}>Ver mi Perfil</button>
-                  <button className="salir-btn" onClick={() => navigate("/backToLogin")}>Salir</button>
+                  <button className="salir-btn" onClick={() => navigate("/")}>Salir</button>
                 </div>
               </div>
 

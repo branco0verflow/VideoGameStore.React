@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSocio } from "../../Componentes/socioContext/socioContext";
 import VolverButton from "../VolverButton/VolverButton";
+import { faUserPlus, faGhost } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import './ReservaAnonima.css';
 
 const CreaReservaAnonima = () => {
     const navigate = useNavigate();
@@ -53,7 +56,7 @@ const CreaReservaAnonima = () => {
         }
 
         let reserva;
-        if (usarDatosManual) {
+        if (!usarDatosManual) {
             if (!nombreCliente) {
                 setError("Debe ingresar un nombre si usa el modo manual.");
                 return;
@@ -65,6 +68,7 @@ const CreaReservaAnonima = () => {
                 nombreCliente, // Ahora va directamente en la reserva
                 telefonoCliente: telefonoCliente || null, // Si no se ingresa, se envía null
                 estado: false,
+                noMonetario: false,
                 cortesia: { id: 1 },
                 socio: { id: socio.id }
             };
@@ -79,6 +83,7 @@ const CreaReservaAnonima = () => {
                 tipoDeCorte: { id: tipoDeCorteSeleccionado },
                 usuario: { id: Number(usuarioSeleccionado) }, // Enviamos el ID del usuario
                 estado: false,
+                noMonetario: false,
                 cortesia: { id: 1 },
                 socio: { id: socio.id }
             };
@@ -108,9 +113,48 @@ const CreaReservaAnonima = () => {
     return (
         <form onSubmit={handleSubmit}>
             {error && <p style={{ color: "red" }}>{error}</p>}
-            <div className="boton-atras">
-                <VolverButton fallback="/crearReserva" />
+            <div className="cabezal-botones-anonimas">
+                <div className="boton-atras">
+                    <VolverButton fallback="/VerReservas" />
+                </div>
+
             </div>
+
+
+            {!usarDatosManual ? (
+                <div>
+
+
+                    <div>
+                        <label>Nombre del Cliente:</label>
+                        <input type="text" value={nombreCliente} onChange={(e) => setNombreCliente(e.target.value)} required />
+                    </div>
+                    <div>
+                        <label>Teléfono (opcional):</label>
+                        <input type="text" value={telefonoCliente} onChange={(e) => setTelefonoCliente(e.target.value)} />
+                    </div>
+
+
+
+
+
+
+                </div>
+            ) : (
+                <>
+                    <div>
+                        <label>Usuario registrado:</label>
+                        <select value={usuarioSeleccionado} onChange={(e) => setUsuarioSeleccionado(Number(e.target.value))} required>
+                            <option value="">Seleccione un usuario</option>
+                            {usuarios.map((user) => (
+                                <option key={user.id} value={user.id}>{user.nombre} ({user.nombreUsuario})</option>
+                            ))}
+                        </select>
+                    </div>
+                </>
+            )}
+
+
             <div>
                 <label>Tipo de Corte:</label>
                 <select value={tipoDeCorteSeleccionado} onChange={(e) => setTipoDeCorteSeleccionado(e.target.value)} required>
@@ -121,36 +165,25 @@ const CreaReservaAnonima = () => {
                 </select>
             </div>
 
+            
             <div>
-                <label>¿Ingresar datos manualmente?</label>
+                <label>¿Ingresar datos automáticos?</label>
                 <input type="checkbox" checked={usarDatosManual} onChange={(e) => setUsarDatosManual(e.target.checked)} />
             </div>
 
-            {!usarDatosManual ? (
-                <div>
-                    <label>Usuario registrado:</label>
-                    <select value={usuarioSeleccionado} onChange={(e) => setUsuarioSeleccionado(Number(e.target.value))} required>
-                        <option value="">Seleccione un usuario</option>
-                        {usuarios.map((user) => (
-                            <option key={user.id} value={user.id}>{user.nombre} ({user.nombreUsuario})</option>
-                        ))}
-                    </select>
-                </div>
-            ) : (
-                <>
-                    <div>
-                        <label>Nombre del Cliente:</label>
-                        <input type="text" value={nombreCliente} onChange={(e) => setNombreCliente(e.target.value)} required />
-                    </div>
-                    <div>
-                        <label>Teléfono (opcional):</label>
-                        <input type="text" value={telefonoCliente} onChange={(e) => setTelefonoCliente(e.target.value)} />
-                    </div>
-                </>
-            )}
+
 
             <button type="submit">Confirmar Reserva</button>
+
+            <div className="CrearUser">
+                <button className="CrearUser-button" onClick={() => navigate("/crearReserva", { state: { selectedDate, hora } })}><FontAwesomeIcon icon={faGhost} /></button>
+            </div>
+            <div className="CrearUser">
+                <button className="CrearUser-button" onClick={() => navigate("/registrarse")}><FontAwesomeIcon icon={faUserPlus} /></button>
+            </div>
         </form>
+
+        
     );
 };
 

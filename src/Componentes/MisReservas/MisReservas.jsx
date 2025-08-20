@@ -75,48 +75,50 @@ const MisReservas = () => {
     const sinReservas = reservas.length === 0;
 
     return (
-        <div className="mis-reservas">
-            <div className="volver-atras-reservas">
-            <VolverButton fallback='/reservar'/>
+        <div className="contenedor-mis-reservas">
+            <div className="mis-reservas">
+                <div className="volver-atras-reservas">
+                    <VolverButton fallback='/reservar' />
+                </div>
+                <h2 className="bungee-inline-regular">Hola {usuario.nombre}, estas son tus reservas:</h2>
+
+                {sinReservas ? (
+                    <p className="bungee-inline-regular">Aún no tienes reservas registradas.</p>
+                ) : (
+                    <ul className="reservas-list">
+                        {reservas.map((reserva) => (
+                            <li key={reserva.id} className="reserva-item">
+                                <div className="reserva-detalle">
+                                    <p className="sulphur-point-bold">
+                                        <strong>Barbero:</strong> {reserva.socio.nombre} {reserva.socio.apellido}
+                                    </p>
+                                    <p className="sulphur-point-bold">
+                                        <strong>Fecha:</strong> {reserva.fechaSeleccionada}
+                                    </p>
+                                    <p className="sulphur-point-bold">
+                                        <strong>Hora:</strong> {reserva.horarioSeleccionado.split(":").slice(0, 2).join(":")}
+                                    </p>
+                                    <p className="sulphur-point-bold">
+                                        <strong>Estado:</strong>{" "}
+                                        {reserva.estado ? "Confirmada" : "Pendiente"}
+                                    </p>
+                                    <p className="sulphur-point-bold">
+                                        <strong>Precio:</strong> {reserva.tipoDeCorte.precio}
+                                    </p>
+                                </div>
+                                {!reserva.estado && (
+                                    <button
+                                        onClick={() => cancelarReserva(reserva.id)}
+                                        className="cancelar-btn"
+                                    >
+                                        Cancelar Reserva
+                                    </button>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </div>
-            <h2 className="bungee-inline-regular">Hola {usuario.nombre}, estas son tus reservas:</h2>
-            
-            {sinReservas ? (
-                <p className="bungee-inline-regular">Aún no tienes reservas registradas.</p>
-            ) : (
-                <ul className="reservas-list">
-                    {reservas.map((reserva) => (
-                        <li key={reserva.id} className="reserva-item">
-                            <div className="reserva-detalle">
-                                <p className="sulphur-point-bold">
-                                    <strong>Barbero:</strong> {reserva.socio.nombre} {reserva.socio.apellido}
-                                </p>
-                                <p className="sulphur-point-bold">
-                                    <strong>Fecha:</strong> {reserva.fechaSeleccionada}
-                                </p>
-                                <p className="sulphur-point-bold">
-                                    <strong>Hora:</strong> {reserva.horarioSeleccionado}
-                                </p>
-                                <p className="sulphur-point-bold">
-                                    <strong>Estado:</strong>{" "}
-                                    {reserva.estado ? "Confirmada" : "Pendiente"}
-                                </p>
-                                <p className="sulphur-point-bold">
-                                    <strong>Precio:</strong> {reserva.tipoDeCorte.precio}
-                                </p>
-                            </div>
-                            {!reserva.estado && (
-                                <button
-                                    onClick={() => cancelarReserva(reserva.id)}
-                                    className="cancelar-btn"
-                                >
-                                    Cancelar Reserva
-                                </button>
-                            )}
-                        </li>
-                    ))}
-                </ul>
-            )}
         </div>
     );
 };

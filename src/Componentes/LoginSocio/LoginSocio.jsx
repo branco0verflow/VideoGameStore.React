@@ -33,7 +33,7 @@ const LoginSocio = () => {
 
       const socio = await response.json();
       setSocio(socio);
-      navigate("/adminReservas");
+      navigate("/VerReservas");
     } catch (err) {
       console.error("Error detallado:", err);
       setError("Error al conectar con el servidor");

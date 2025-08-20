@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useSocio } from "../../Componentes/socioContext/socioContext";
 import "./VerReservas.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faTrash, faClock, faUser, faMobile, faScissors } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faTrash, faClock, faUser, faMobile, faScissors, faCopy, faCreditCard } from '@fortawesome/free-solid-svg-icons';
 import VolverButton from "../VolverButton/VolverButton";
+import Cargando from "../Cargando/Cargando";
 
 
 const VerReservas = () => {
@@ -14,12 +15,14 @@ const VerReservas = () => {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
   const [facturacion, setFacturacion] = useState(0);
   const [gastos, setGastos] = useState(0);
+  const [noMonetario, setNoMonetario] = useState(0);
   const [cierreCaja, setCierreCaja] = useState(0);
   const [nuevoGasto, setNuevoGasto] = useState({ descripcion: "", monto: "" });
   const [listaGastos, setListaGastos] = useState([]);
   const [error, setError] = useState("");
   const [horariosDisponibles, setHorarios] = useState([]);
   const [horaSeleccionada, setHoraSeleccionada] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const fetchReservas = async (fechaSeleccionada) => {
     try {
@@ -41,8 +44,66 @@ const VerReservas = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchHorarios = async () => {
+      if (socio && selectedDate) {
+        setLoading(true);
+        try {
+          const [anio, mes, dia] = selectedDate.split("-");
+          const response = await fetch(
+            `https://albo-barber.onrender.com/reservas/horarios-disponibles/${socio.id}?anio=${anio}&mes=${mes}&dia=${dia}`
+          );
+          const data = await response.json();
+
+          // Limpiar horarios antes de actualizar
+          setHorarios([]);
+
+          // Eliminar ':00' de los horarios antes de guardarlos
+          const horariosFormateados = data.map((hora) => hora.replace(":00", ""));
+          setHorarios(horariosFormateados);
+        } catch (err) {
+          console.error("Error al cargar los horarios disponibles", err);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchHorarios();
+  }, [socio, selectedDate]);
+
+  // Función para copiar horarios actualizados
+  const copiarHorarios = () => {
+    if (!horariosDisponibles.length) {
+      alert("No hay horarios disponibles para copiar.");
+      return;
+    }
+
+    const ahora = new Date();
+    const horaActual = ahora.getHours() * 60 + ahora.getMinutes();
+    const hoy = new Date().toISOString().split("T")[0];
+
+    const horariosFiltrados = horariosDisponibles.filter((hora) => {
+      const [h, m] = hora.split(":").map(Number);
+
+      if (selectedDate !== hoy) {
+        return true;
+      } else {
+        return h * 60 + m >= horaActual;
+      }
+    });
 
 
+    if (horariosFiltrados.length === 0) {
+      alert("No hay horarios disponibles para copiar.");
+      return;
+    }
+
+    const textoCopiar = horariosFiltrados.join(", ");
+
+    navigator.clipboard.writeText("Horarios disponibles: " + textoCopiar)
+      .catch((err) => console.error("Error al copiar", err));
+  };
 
   const fetchCierreCaja = async (fechaSeleccionada) => {
     try {
@@ -55,6 +116,7 @@ const VerReservas = () => {
       const data = await response.json();
       setFacturacion(data.facturacion);
       setGastos(data.gastos);
+      setNoMonetario(data.noMonetario);
       console.log(data.gastos);
       console.log("Id del Socio: ", socio.id);
       setCierreCaja(data.cierreCaja);
@@ -107,6 +169,25 @@ const VerReservas = () => {
     }
   };
 
+  const confirmarReservaNoMonetaria = async (reservaId) => {
+    try {
+      const response = await fetch(
+        `https://albo-barber.onrender.com/reservas/${reservaId}/confirmarNoMonetario`,
+        { method: "PATCH" }
+      );
+      if (response.ok) {
+        alert("Reserva no monetaria confirmada con éxito.");
+        fetchReservas(selectedDate); // Refrescar la lista
+        fetchCierreCaja(selectedDate); // Actualizar datos
+      } else {
+        alert("Error al confirmar la reserva.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Ocurrió un error al intentar confirmar la reserva.");
+    }
+  };
+
   const eliminarReserva = async (reservaId) => {
     try {
       const response = await fetch(`https://albo-barber.onrender.com/reservas/${reservaId}`, {
@@ -142,26 +223,7 @@ const VerReservas = () => {
     }
   };
 
-  useEffect(() => {
 
-    const fetchHorarios = async () => {
-      if (socio && selectedDate) {
-        try {
-          const [anio, mes, dia] = selectedDate.split("-");
-          const response = await fetch(
-            `https://albo-barber.onrender.com/reservas/horarios-disponibles/${socio.id}?anio=${anio}&mes=${mes}&dia=${dia}`
-          );
-          const data = await response.json();
-          setHorarios(data);
-          console.log("se ejecuta fetch de hora", data);
-        } catch (err) {
-          console.error("Error al cargar los horarios disponibles", err);
-        }
-      }
-    };
-
-    fetchHorarios();
-  }, [socio, selectedDate]);
 
   useEffect(() => {
     fetchReservas(selectedDate);
@@ -184,6 +246,8 @@ const VerReservas = () => {
     setSelectedDate(e.target.value);
   };
 
+  if (loading) return <Cargando />;
+
   return (
     <div className="ver-reservas-container">
       <div className="botones-container">
@@ -193,35 +257,42 @@ const VerReservas = () => {
           type="date"
           value={selectedDate}
           onChange={handleSeleccionarDia}
+          onClick={(e) => e.target.showPicker()}
           className="fecha-selector"
         />
         <VolverButton fallback="/adminReservas" />
       </div>
 
-      <h2 className="bungee-inline-regular">Para {selectedDate}</h2>
+      <h2 className="bungee-inline-regular">{selectedDate}</h2>
       <div className="reservas-list">
         {reservas.length === 0 ? (
           <p>No hay reservas para esta fecha.</p>
         ) : (
           reservas.map((reserva) => (
             <div key={reserva.id} className="reserva-item">
-              <p className="abel-regular"><FontAwesomeIcon icon={faClock} /> <strong>{reserva.horarioSeleccionado}</strong> </p>
+              <p className="abel-regular"><FontAwesomeIcon icon={faClock} /> <strong>{reserva.horarioSeleccionado.split(":").slice(0, 2).join(":")}</strong> </p>
               <p className="abel-regular">
-    <FontAwesomeIcon icon={faUser} />{" "}
-    {(reserva.usuario) ? `${reserva.usuario.nombre} ${reserva.usuario.apellido}` : reserva.nombreCliente}
-</p>
-              <p className="abel-regular"><FontAwesomeIcon icon={faMobile} /> <p>{reserva.usuario ? reserva.usuario.telefono: reserva.telefonoCliente}</p> </p>
+                <FontAwesomeIcon icon={faUser} />{" "}
+                {(reserva.usuario) ? `${reserva.usuario.nombre} ${reserva.usuario.apellido}` : reserva.nombreCliente}
+              </p>
+              <p className="abel-regular"><FontAwesomeIcon icon={faMobile} /> <p>{reserva.usuario ? reserva.usuario.telefono : reserva.telefonoCliente}</p> </p>
               <p className="abel-regular"><FontAwesomeIcon icon={faScissors} /> {reserva.tipoDeCorte.nombre} ${reserva.tipoDeCorte.precio}</p>
               {!reserva.estado && (
-                <button onClick={() => confirmarReserva(reserva.id)}>
+                <button className="botonZ boton-verde" onClick={() => confirmarReserva(reserva.id)}>
                   <FontAwesomeIcon icon={faCheck} />
                 </button>
               )}
+              {!reserva.estado && (
+                <button className="botonZ boton-naranja" onClick={() => confirmarReservaNoMonetaria(reserva.id)}>
+                  <FontAwesomeIcon icon={faCreditCard} />
+                </button>
+              )}
               {!reserva.estado ? (
-                <button onClick={() => eliminarReserva(reserva.id)}>
+                <button className="botonZ boton-rojo" onClick={() => eliminarReserva(reserva.id)}>
                   <FontAwesomeIcon icon={faTrash} />
                 </button>
               ) : ""}
+
             </div>
           ))
         )}
@@ -230,17 +301,29 @@ const VerReservas = () => {
             <button
               key={index}
               className="horario-boton"
-              onClick={() => navigate('/crearReserva', { state: { selectedDate, hora } })}
+              onClick={() => navigate('/reservaAnonima', { state: { selectedDate, hora } })}
             >
-              {hora}
+              {hora.split(":").slice(0, 2).join(":")}
             </button>
           ))}
         </div>
+
+        <div>
+          <button
+            className="boton-horarios"
+            onClick={copiarHorarios}
+            disabled={horariosDisponibles.length === 0}
+          >
+            <FontAwesomeIcon icon={faCopy} />
+          </button>
+        </div>
+
       </div>
 
       <div className="cierre-caja-container">
         <h3 className="bungee-inline-regular">Cierre de Caja</h3>
         <p className="bungee-inline-regular">Total Facturado: ${facturacion}</p>
+        <p className="bungee-inline-regular">No monetario: ${noMonetario}</p>
         <p className="bungee-inline-regular">Total Gastos: ${gastos}</p>
         <p className="bungee-inline-regular">Cierre de Caja: ${cierreCaja}</p>
 
