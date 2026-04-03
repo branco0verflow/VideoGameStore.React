@@ -26,6 +26,7 @@ const FormularioReserva = () => {
   const [cortesiaSeleccionada, setCortesiaSeleccionada] = useState(null);
   const [cortesiaActiva, setCortesiaActiva] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loadingHorarios, setLoadingHorarios] = useState(false);
   const [imgIdx, setImgIdx] = useState(0);
   const [error, setError] = useState("");
 
@@ -38,9 +39,12 @@ const FormularioReserva = () => {
 
   useEffect(() => {
     if (!socioSeleccionado || !fechaSeleccionada) return;
+    setLoadingHorarios(true);
+    setHorarios([]);
     const [anio, mes, dia] = fechaSeleccionada.split("-");
     fetch(`https://albo-barber.onrender.com/reservas/horarios-disponibles/${socioSeleccionado}?anio=${anio}&mes=${mes}&dia=${dia}`)
-      .then(r=>r.json()).then(setHorarios).catch(()=>setError("Error al cargar horarios"));
+      .then(r=>r.json()).then(setHorarios).catch(()=>setError("Error al cargar horarios"))
+      .finally(()=>setLoadingHorarios(false));
   }, [socioSeleccionado, fechaSeleccionada]);
 
   useEffect(() => {
@@ -178,8 +182,10 @@ const FormularioReserva = () => {
                 <div>
                   <label className="field-label" htmlFor="horario">Horario disponible</label>
                   <select id="horario" className="input-field cursor-pointer" value={horarioSeleccionado}
-                    onChange={(e) => setHorarioSeleccionado(e.target.value)} disabled={!horarios.length}>
-                    <option value="">Selecciona un horario</option>
+                    onChange={(e) => setHorarioSeleccionado(e.target.value)} disabled={loadingHorarios || !horarios.length}>
+                    <option value="">
+                      {loadingHorarios ? "Cargando horarios..." : horarios.length === 0 ? "Sin horarios disponibles" : "Selecciona un horario"}
+                    </option>
                     {horarios.map((h, i) => <option key={i} value={h}>{h.split(":").slice(0,2).join(":")}</option>)}
                   </select>
                 </div>

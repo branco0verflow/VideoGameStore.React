@@ -42,10 +42,16 @@
   /* Input / Select oscuro */
   .input-field {
     @apply w-full bg-[#1c1c1c] border border-[rgba(255,255,255,0.08)]
-           rounded-xl text-white text-base font-lato font-light
+           rounded-xl text-base font-lato font-light
            px-4 py-3 outline-none
            transition-all duration-200 placeholder-white/20
            focus:border-white/30 focus:bg-[#222222];
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+  }
+  .input-field option {
+    background-color: #1c1c1c;
+    color: #ffffff;
   }
 
   /* Botón principal — blanco sólido */
