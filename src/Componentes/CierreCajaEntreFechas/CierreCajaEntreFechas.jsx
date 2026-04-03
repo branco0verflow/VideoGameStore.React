@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import VolverButton from "../VolverButton/VolverButton";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 

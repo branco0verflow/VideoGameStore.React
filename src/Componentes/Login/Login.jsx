@@ -6,8 +6,7 @@ import imag1 from '../../Images/Albo1.jpg';
 import imag2 from '../../Images/Albo2.jpg';
 import imag3 from '../../Images/Albo3.jpg';
 
-//Necesito hacer un commit
-
+const images = [imag1, imag2, imag3];
 
 const Login = () => {
   const { setUsuario } = useUsuario();
@@ -16,8 +15,6 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [imgIdx, setImgIdx] = useState(0);
-
-  const images = [imag1, imag2, imag3];
 
   const handleSubmit = async (e) => {
     e.preventDefault();

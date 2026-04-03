@@ -102,6 +102,7 @@ const VerReservas = () => {
     } catch { console.error("Error al cargar gastos."); }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { fetchReservas(selectedDate); fetchCierreCaja(selectedDate); fetchGastos(selectedDate); }, [selectedDate]);
 
   if (loading) return <Cargando />;
