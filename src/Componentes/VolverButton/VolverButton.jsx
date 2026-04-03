@@ -1,23 +1,19 @@
-import React from 'react';
-import './VolverButton.css';  // Asegúrate de importar el archivo CSS
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useNavigate } from "react-router-dom";
 
 const VolverButton = ({ fallback = "/" }) => {
   const navigate = useNavigate();
-
-  const handleBack = () => {
-      navigate(fallback); // Ir a la página de fallback si no hay historial
-    
-  };
-
   return (
-    <button className="volver-button" onClick={handleBack}>
-      <FontAwesomeIcon icon={faArrowLeft} />
+    <button
+      aria-label="Volver"
+      onClick={() => navigate(fallback)}
+      className="font-oswald text-xs tracking-widest uppercase px-3 py-2.5
+                 bg-transparent text-white/40 border border-white/10 rounded-xl
+                 hover:text-white hover:border-white/30
+                 active:scale-95 transition-all duration-200"
+    >
+      ←
     </button>
   );
 };
 
 export default VolverButton;
-

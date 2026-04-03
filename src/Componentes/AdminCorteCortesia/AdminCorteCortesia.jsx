@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import './AdminCorteCortesia.css';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const CortesYTiposDeCorte = () => {
     const navigate = useNavigate();
@@ -13,275 +10,133 @@ const CortesYTiposDeCorte = () => {
     const [nuevoCorte, setNuevoCorte] = useState({ nombre: "", precio: "" });
     const [nuevaCortesia, setNuevaCortesia] = useState({ nombre: "", precio: "" });
 
-    useEffect(() => {
-        fetchCortes();
-        fetchCortesias();
-    }, []);
+    useEffect(() => { fetchCortes(); fetchCortesias(); }, []);
 
     const fetchCortes = async () => {
-        try {
-            const response = await fetch("https://albo-barber.onrender.com/tipos-de-corte");
-            const data = await response.json();
-            setCortes(data);
-        } catch (error) {
-            console.error("Error al obtener cortes:", error);
-        }
+        try { setCortes(await (await fetch("https://albo-barber.onrender.com/tipos-de-corte")).json()); }
+        catch (e) { console.error(e); }
+    };
+    const fetchCortesias = async () => {
+        try { setCortesias(await (await fetch("https://albo-barber.onrender.com/api/cortesias")).json()); }
+        catch (e) { console.error(e); }
     };
 
-    const fetchCortesias = async () => {
-        try {
-            const response = await fetch("https://albo-barber.onrender.com/api/cortesias");
-            const data = await response.json();
-            setCortesias(data);
-        } catch (error) {
-            console.error("Error al obtener cortesías:", error);
-        }
-    };
+    const apiPost = async (url, body) => { await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }); };
+    const apiPut  = async (url, body) => { await fetch(url, { method: "PUT",  headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }); };
+    const apiDel  = async (url)       => { await fetch(url, { method: "DELETE" }); };
 
     const handleAgregarCorte = async () => {
         if (!nuevoCorte.nombre || !nuevoCorte.precio) return;
-        try {
-            const response = await fetch("https://albo-barber.onrender.com/tipos-de-corte", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(nuevoCorte),
-            });
-            if (response.ok) {
-                fetchCortes();
-                setNuevoCorte({ nombre: "", precio: "" });
-            } else {
-                console.error("Error al agregar el corte");
-            }
-        } catch (error) {
-            console.error("Error al agregar el corte:", error);
-        }
+        await apiPost("https://albo-barber.onrender.com/tipos-de-corte", nuevoCorte);
+        fetchCortes(); setNuevoCorte({ nombre: "", precio: "" });
     };
-
     const handleAgregarCortesia = async () => {
         if (!nuevaCortesia.nombre || !nuevaCortesia.precio) return;
-        try {
-            const response = await fetch("https://albo-barber.onrender.com/api/cortesias", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(nuevaCortesia),
-            });
-            if (response.ok) {
-                fetchCortesias();
-                setNuevaCortesia({ nombre: "", precio: "" });
-            } else {
-                console.error("Error al agregar la cortesía");
-            }
-        } catch (error) {
-            console.error("Error al agregar la cortesía:", error);
-        }
+        await apiPost("https://albo-barber.onrender.com/api/cortesias", nuevaCortesia);
+        fetchCortesias(); setNuevaCortesia({ nombre: "", precio: "" });
     };
+    const handleModificarCorte = async (c) => { await apiPut(`https://albo-barber.onrender.com/tipos-de-corte/${c.id}`, c); fetchCortes(); setEditingCorte(null); };
+    const handleModificarCortesia = async (c) => { await apiPut(`https://albo-barber.onrender.com/api/cortesias/${c.id}`, c); fetchCortesias(); setEditingCortesia(null); };
+    const handleEliminarCorte = async (id) => { await apiDel(`https://albo-barber.onrender.com/tipos-de-corte/${id}`); fetchCortes(); };
+    const handleEliminarCortesia = async (id) => { await apiDel(`https://albo-barber.onrender.com/api/cortesias/${id}`); fetchCortesias(); };
 
+    const ItemRow = ({ item, isEditing, onEdit, onSave, onCancel, onDelete, onChange }) => (
+        <div className={`border-b border-white/[0.04] last:border-0 ${isEditing ? "bg-[#0f0f0f]" : "hover:bg-[#0f0f0f]/50"} transition-colors`}>
+            {isEditing ? (
+                <div className="p-3 space-y-2">
+                    <input className="input-field" type="text" value={item.nombre} aria-label="Nombre"
+                        onChange={(e) => onChange(item.id, 'nombre', e.target.value)} />
+                    <input className="input-field" type="number" value={item.precio} aria-label="Precio"
+                        onChange={(e) => onChange(item.id, 'precio', parseFloat(e.target.value))} />
+                    <div className="flex gap-2">
+                        <button onClick={() => onSave(item)} className="btn-primary flex-1 py-2 text-xs">Guardar</button>
+                        <button onClick={onCancel} className="btn-secondary flex-1 py-2 text-xs">Cancelar</button>
+                    </div>
+                </div>
+            ) : (
+                <div className="flex items-center justify-between gap-2 px-4 py-3">
+                    <div>
+                        <span className="font-lato text-white text-sm">{item.nombre}</span>
+                        <span className="font-oswald text-white/60 font-semibold ml-2 text-sm">${item.precio}</span>
+                    </div>
+                    <div className="flex gap-1.5">
+                        <button onClick={() => onEdit(item.id)}
+                            className="font-oswald text-[9px] tracking-widest uppercase px-3 py-1.5 border border-white/10 text-white/60 hover:bg-white hover:text-black transition-all rounded-lg">
+                            Editar
+                        </button>
+                        <button onClick={() => onDelete(item.id)}
+                            className="font-oswald text-[9px] tracking-widest uppercase px-3 py-1.5 border border-red-800/40 text-red-400 hover:bg-red-800 hover:text-white transition-all rounded-lg">
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 
-    const handleEliminarCorte = async (id) => {
-        try {
-            const response = await fetch(`https://albo-barber.onrender.com/tipos-de-corte/${id}`, {
-                method: "DELETE",
-            });
-
-            if (response.ok) {
-                fetchCortes();
-            } else {
-                console.error("Error al eliminar el corte");
-                console.log(id);
-            }
-        } catch (error) {
-            console.error("Error al eliminar el corte:", error);
-        }
-    };
-
-    const handleEliminarCortesia = async (id) => {
-        try {
-            const response = await fetch(`https://albo-barber.onrender.com/api/cortesias/${id}`, {
-                method: "DELETE",
-            });
-
-            if (response.ok) {
-                fetchCortesias();
-            } else {
-                console.error("Error al eliminar la cortesía");
-            }
-        } catch (error) {
-            console.error("Error al eliminar la cortesía:", error);
-        }
-    };
-
-    const handleModificarCorte = async (corte) => {
-        try {
-            const response = await fetch(`https://albo-barber.onrender.com/tipos-de-corte/${corte.id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(corte),
-            });
-
-            if (response.ok) {
-                fetchCortes();
-                setEditingCorte(null);
-            } else {
-                console.error("Error al modificar el corte");
-                console.log(corte.id);
-            }
-        } catch (error) {
-            console.error("Error al modificar el corte:", error);
-        }
-    };
-
-    const handleModificarCortesia = async (cortesia) => {
-        try {
-            const response = await fetch(`https://albo-barber.onrender.com/api/cortesias/${cortesia.id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(cortesia),
-            });
-
-            if (response.ok) {
-                fetchCortesias();
-                setEditingCortesia(null);
-            } else {
-                console.error("Error al modificar la cortesía");
-            }
-        } catch (error) {
-            console.error("Error al modificar la cortesía:", error);
-        }
-    };
-
-    return (
-        <div className="cortes-y-cortesias-container">
-            <div className="header">
-                <button className="volver-button" onClick={() => navigate(-1)}>
-                    <FontAwesomeIcon icon={faArrowLeft} />
-                </button>
+    const Section = ({ title, items, editing, onEdit, onSave, onCancel, onDelete, onChange, newItem, setNew, onAdd }) => (
+        <div className="bg-[#141414] border border-white/[0.06] rounded-2xl overflow-hidden">
+            <div className="px-5 py-4 border-b border-white/[0.06]">
+                <h2 className="font-oswald font-semibold text-base text-white tracking-widest uppercase">{title}</h2>
             </div>
 
-            <div className="cortes-section">
-                <h2>Todos los Cortes</h2>
-                {cortes.map((corte) => (
-                    <div key={corte.id} className="corte-item">
-                        {editingCorte === corte.id ? (
-                            <div>
-                                <input
-                                    type="text"
-                                    value={corte.nombre}
-                                    onChange={(e) => setCortes(
-                                        cortes.map((c) =>
-                                            c.id === corte.id ? { ...c, nombre: e.target.value } : c
-                                        )
-                                    )}
-                                />
-                                <input
-                                    type="number"
-                                    value={corte.precio}
-                                    onChange={(e) => setCortes(
-                                        cortes.map((c) =>
-                                            c.id === corte.id ? { ...c, precio: parseFloat(e.target.value) } : c
-                                        )
-                                    )}
-                                />
-                                <button onClick={() => handleModificarCorte(corte)}>Guardar</button>
-                                <button onClick={() => setEditingCorte(null)}>Cancelar</button>
-                            </div>
-                        ) : (
-                            <>
-                                <p>{corte.nombre} - ${corte.precio}</p>
-                                <button onClick={() => setEditingCorte(corte.id)}>Modificar</button>
-                                <button onClick={() => handleEliminarCorte(corte.id)}>Eliminar</button>
-                            </>
-                        )}
-                    </div>
+            <div className="max-h-56 overflow-y-auto scrollbar-hide">
+                {items.map((item) => (
+                    <ItemRow key={item.id} item={item}
+                        isEditing={editing === item.id}
+                        onEdit={onEdit} onSave={onSave} onCancel={onCancel} onDelete={onDelete} onChange={onChange} />
                 ))}
             </div>
 
-            <div className="form-section">
-                <h2>Agregar Corte</h2>
-                <input
-                    type="text"
-                    placeholder="Nombre del corte"
-                    value={nuevoCorte.nombre}
-                    onChange={(e) => setNuevoCorte({ ...nuevoCorte, nombre: e.target.value })}
-                />
-                <input
-                    type="number"
-                    placeholder="Precio del corte"
-                    value={nuevoCorte.precio}
-                    onChange={(e) => setNuevoCorte({ ...nuevoCorte, precio: e.target.value })}
-                />
-                <button className="btn-agregar" onClick={handleAgregarCorte}>
-                    Agregar Corte
+            <div className="px-4 py-4 border-t border-white/[0.04] space-y-2">
+                <p className="font-oswald text-[10px] text-white/30 tracking-widest uppercase">Agregar</p>
+                <input className="input-field" type="text" placeholder="Nombre" value={newItem.nombre} aria-label="Nombre"
+                    onChange={(e) => setNew({ ...newItem, nombre: e.target.value })} />
+                <div className="flex gap-2">
+                    <input className="input-field flex-1" type="number" placeholder="Precio" value={newItem.precio} aria-label="Precio"
+                        onChange={(e) => setNew({ ...newItem, precio: e.target.value })} />
+                    <button onClick={onAdd} className="btn-primary text-xs px-4 w-auto rounded-xl">+</button>
+                </div>
+            </div>
+        </div>
+    );
+
+    return (
+        <div className="min-h-screen bg-[#0a0a0a]">
+          <div className="max-w-3xl mx-auto px-4 py-6">
+            <div className="flex items-center gap-4 mb-8">
+                <button
+                    onClick={() => navigate(-1)}
+                    className="font-oswald text-xs text-white/40 tracking-widest uppercase hover:text-white transition-colors px-3 py-2 border border-white/10 rounded-xl"
+                    aria-label="Volver"
+                >
+                    ←
                 </button>
+                <h1 className="font-oswald font-semibold text-2xl text-white tracking-widest uppercase">
+                    Cortes y Cortesías
+                </h1>
             </div>
 
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Section
+                    title="Tipos de Corte"
+                    items={cortes} editing={editingCorte}
+                    onEdit={setEditingCorte} onSave={handleModificarCorte}
+                    onCancel={() => setEditingCorte(null)} onDelete={handleEliminarCorte}
+                    onChange={(id, f, v) => setCortes(cortes.map((c) => c.id === id ? { ...c, [f]: v } : c))}
+                    newItem={nuevoCorte} setNew={setNuevoCorte}
+                    onAdd={handleAgregarCorte} />
 
-
-            <div className="cortes-y-cortesias-container">
-                <div className="header">
-                </div>
-
-
-
-                <div className="cortesias-section">
-                    <h2>Todas las Cortesías</h2>
-                    {cortesias.map((cortesia) => (
-                        <div key={cortesia.id} className="cortesia-item">
-                            {editingCortesia === cortesia.id ? (
-                                <div>
-                                    <input
-                                        type="text"
-                                        value={cortesia.nombre}
-                                        onChange={(e) => setCortesias(
-                                            cortesias.map((c) =>
-                                                c.id === cortesia.id ? { ...c, nombre: e.target.value } : c
-                                            )
-                                        )}
-                                    />
-                                    <input
-                                        type="number"
-                                        value={cortesia.precio}
-                                        onChange={(e) => setCortesias(
-                                            cortesias.map((c) =>
-                                                c.id === cortesia.id ? { ...c, precio: parseFloat(e.target.value) } : c
-                                            )
-                                        )}
-                                    />
-                                    <button onClick={() => handleModificarCortesia(cortesia)}>Guardar</button>
-                                    <button onClick={() => setEditingCortesia(null)}>Cancelar</button>
-                                </div>
-                            ) : (
-                                <>
-                                    <p>{cortesia.nombre} - ${cortesia.precio}</p>
-                                    <button onClick={() => setEditingCortesia(cortesia.id)}>Modificar</button>
-                                    <button onClick={() => handleEliminarCortesia(cortesia.id)}>Eliminar</button>
-                                </>
-                            )}
-                        </div>
-                    ))}
-                </div>
-
-                <div className="form-section">
-                    <h2>Agregar Cortesía</h2>
-                    <input
-                        type="text"
-                        placeholder="Nombre de la cortesía"
-                        value={nuevaCortesia.nombre}
-                        onChange={(e) => setNuevaCortesia({ ...nuevaCortesia, nombre: e.target.value })}
-                    />
-                    <input
-                        type="number"
-                        placeholder="Precio de la cortesía"
-                        value={nuevaCortesia.precio}
-                        onChange={(e) => setNuevaCortesia({ ...nuevaCortesia, precio: e.target.value })}
-                    />
-                    <button className="btn-agregar" onClick={handleAgregarCortesia}>
-                        Agregar Cortesía
-                    </button>
-                </div>
-
+                <Section
+                    title="Cortesías"
+                    items={cortesias} editing={editingCortesia}
+                    onEdit={setEditingCortesia} onSave={handleModificarCortesia}
+                    onCancel={() => setEditingCortesia(null)} onDelete={handleEliminarCortesia}
+                    onChange={(id, f, v) => setCortesias(cortesias.map((c) => c.id === id ? { ...c, [f]: v } : c))}
+                    newItem={nuevaCortesia} setNew={setNuevaCortesia}
+                    onAdd={handleAgregarCortesia} />
             </div>
-
-
+          </div>
         </div>
     );
 };

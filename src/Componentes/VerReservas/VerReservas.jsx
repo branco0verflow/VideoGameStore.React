@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSocio } from "../../Componentes/socioContext/socioContext";
-import "./VerReservas.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTrash, faClock, faUser, faMobile, faScissors, faCopy, faCreditCard } from '@fortawesome/free-solid-svg-icons';
 import VolverButton from "../VolverButton/VolverButton";
 import Cargando from "../Cargando/Cargando";
-
 
 const VerReservas = () => {
   const { socio } = useSocio();
@@ -21,351 +19,254 @@ const VerReservas = () => {
   const [listaGastos, setListaGastos] = useState([]);
   const [error, setError] = useState("");
   const [horariosDisponibles, setHorarios] = useState([]);
-  const [horaSeleccionada, setHoraSeleccionada] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchReservas = async (fechaSeleccionada) => {
+  const fetchReservas = async (fecha) => {
     try {
-      const response = await fetch(
-        `https://albo-barber.onrender.com/reservas/por-socio-y-fecha?socioId=${socio.id}&fecha=${fechaSeleccionada}`
-      );
-      if (!response.ok) {
-        throw new Error("Error al obtener reservas");
-      }
-      const data = response.status === 204 || response.headers.get("Content-Length") === "0"
-        ? []
-        : await response.json();
-
-      setReservas(data); // Actualiza las reservas incluso si está vacío
-      setError("");
-    } catch (err) {
-      console.error(err);
-      setError("No se pudieron cargar las reservas o no hay para este día.");
-    }
+      const r = await fetch(`https://albo-barber.onrender.com/reservas/por-socio-y-fecha?socioId=${socio.id}&fecha=${fecha}`);
+      if (!r.ok) throw new Error();
+      const data = r.status === 204 || r.headers.get("Content-Length") === "0" ? [] : await r.json();
+      setReservas(data); setError("");
+    } catch { setError("No se pudieron cargar las reservas."); }
   };
 
   useEffect(() => {
-    const fetchHorarios = async () => {
-      if (socio && selectedDate) {
-        setLoading(true);
-        try {
-          const [anio, mes, dia] = selectedDate.split("-");
-          const response = await fetch(
-            `https://albo-barber.onrender.com/reservas/horarios-disponibles/${socio.id}?anio=${anio}&mes=${mes}&dia=${dia}`
-          );
-          const data = await response.json();
-
-          // Limpiar horarios antes de actualizar
-          setHorarios([]);
-
-          // Eliminar ':00' de los horarios antes de guardarlos
-          const horariosFormateados = data.map((hora) => hora.replace(":00", ""));
-          setHorarios(horariosFormateados);
-        } catch (err) {
-          console.error("Error al cargar los horarios disponibles", err);
-        } finally {
-          setLoading(false);
-        }
-      }
-    };
-
-    fetchHorarios();
+    if (!socio || !selectedDate) return;
+    setLoading(true);
+    const [anio, mes, dia] = selectedDate.split("-");
+    fetch(`https://albo-barber.onrender.com/reservas/horarios-disponibles/${socio.id}?anio=${anio}&mes=${mes}&dia=${dia}`)
+      .then((r) => r.json())
+      .then((data) => { setHorarios([]); setHorarios(data.map((h) => h.replace(":00", ""))); })
+      .catch(console.error)
+      .finally(() => setLoading(false));
   }, [socio, selectedDate]);
 
-  // Función para copiar horarios actualizados
   const copiarHorarios = () => {
-    if (!horariosDisponibles.length) {
-      alert("No hay horarios disponibles para copiar.");
-      return;
-    }
-
-    const ahora = new Date();
-    const horaActual = ahora.getHours() * 60 + ahora.getMinutes();
+    if (!horariosDisponibles.length) { alert("No hay horarios para copiar."); return; }
     const hoy = new Date().toISOString().split("T")[0];
-
-    const horariosFiltrados = horariosDisponibles.filter((hora) => {
-      const [h, m] = hora.split(":").map(Number);
-
-      if (selectedDate !== hoy) {
-        return true;
-      } else {
-        return h * 60 + m >= horaActual;
-      }
+    const ahora = new Date().getHours() * 60 + new Date().getMinutes();
+    const filtrados = horariosDisponibles.filter((h) => {
+      const [hr, m] = h.split(":").map(Number);
+      return selectedDate !== hoy || hr * 60 + m >= ahora;
     });
-
-
-    if (horariosFiltrados.length === 0) {
-      alert("No hay horarios disponibles para copiar.");
-      return;
-    }
-
-    const textoCopiar = horariosFiltrados.join(", ");
-
-    navigator.clipboard.writeText("Horarios disponibles: " + textoCopiar)
-      .catch((err) => console.error("Error al copiar", err));
+    if (!filtrados.length) { alert("No hay horarios disponibles para copiar."); return; }
+    navigator.clipboard.writeText("Horarios disponibles: " + filtrados.join(", ")).catch(console.error);
   };
 
-  const fetchCierreCaja = async (fechaSeleccionada) => {
+  const fetchCierreCaja = async (fecha) => {
     try {
-      const response = await fetch(
-        `https://albo-barber.onrender.com/gastos/cierre-caja?fecha=${fechaSeleccionada}`
-      );
-      if (!response.ok) {
-        throw new Error("Error al obtener cierre de caja");
-      }
-      const data = await response.json();
-      setFacturacion(data.facturacion);
-      setGastos(data.gastos);
-      setNoMonetario(data.noMonetario);
-      console.log(data.gastos);
-      console.log("Id del Socio: ", socio.id);
-      setCierreCaja(data.cierreCaja);
-    } catch (err) {
-      console.error(error);
-      setError("Error al calcular el cierre de caja.");
-    }
+      const r = await fetch(`https://albo-barber.onrender.com/gastos/cierre-caja?fecha=${fecha}`);
+      if (!r.ok) throw new Error();
+      const d = await r.json();
+      setFacturacion(d.facturacion); setGastos(d.gastos); setNoMonetario(d.noMonetario); setCierreCaja(d.cierreCaja);
+    } catch { setError("Error al calcular el cierre de caja."); }
   };
 
   const agregarGasto = async () => {
     try {
-      const response = await fetch(`https://albo-barber.onrender.com/gastos`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          fecha: selectedDate,
-          descripcion: nuevoGasto.descripcion,
-          monto: parseFloat(nuevoGasto.monto),
-        }),
+      const r = await fetch("https://albo-barber.onrender.com/gastos", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fecha: selectedDate, descripcion: nuevoGasto.descripcion, monto: parseFloat(nuevoGasto.monto) }),
       });
-      if (!response.ok) {
-        throw new Error("Error al agregar gasto");
-      }
-      alert("Gasto agregado con éxito.");
-      setNuevoGasto({ descripcion: "", monto: "" });
-      fetchCierreCaja(selectedDate); // Actualizar datos
-      console.log("La fecha seleccionada: ", selectedDate)
-    } catch (err) {
-      console.error(err);
-      alert("Error al agregar el gasto.");
-    }
+      if (!r.ok) throw new Error();
+      alert("Gasto agregado."); setNuevoGasto({ descripcion: "", monto: "" }); fetchCierreCaja(selectedDate);
+    } catch { alert("Error al agregar el gasto."); }
   };
 
-  const confirmarReserva = async (reservaId) => {
+  const confirmarReserva = async (id) => {
+    const r = await fetch(`https://albo-barber.onrender.com/reservas/${id}/confirmar`, { method: "PATCH" });
+    if (r.ok) { alert("Reserva confirmada."); fetchReservas(selectedDate); fetchCierreCaja(selectedDate); }
+    else alert("Error al confirmar.");
+  };
+
+  const confirmarNoMonetaria = async (id) => {
+    const r = await fetch(`https://albo-barber.onrender.com/reservas/${id}/confirmarNoMonetario`, { method: "PATCH" });
+    if (r.ok) { alert("Confirmada (no monetaria)."); fetchReservas(selectedDate); fetchCierreCaja(selectedDate); }
+    else alert("Error al confirmar.");
+  };
+
+  const eliminarReserva = async (id) => {
     try {
-      const response = await fetch(
-        `https://albo-barber.onrender.com/reservas/${reservaId}/confirmar`,
-        { method: "PATCH" }
-      );
-      if (response.ok) {
-        alert("Reserva confirmada con éxito.");
-        fetchReservas(selectedDate); // Refrescar la lista
-        fetchCierreCaja(selectedDate); // Actualizar datos
-      } else {
-        alert("Error al confirmar la reserva.");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Ocurrió un error al intentar confirmar la reserva.");
-    }
+      const r = await fetch(`https://albo-barber.onrender.com/reservas/${id}`, { method: "DELETE" });
+      if (!r.ok) throw new Error();
+      setReservas((prev) => prev.filter((res) => res.id !== id));
+      alert("Reserva eliminada.");
+    } catch (err) { alert(`Error: ${err.message}`); }
   };
 
-  const confirmarReservaNoMonetaria = async (reservaId) => {
+  const fetchGastos = async (fecha) => {
     try {
-      const response = await fetch(
-        `https://albo-barber.onrender.com/reservas/${reservaId}/confirmarNoMonetario`,
-        { method: "PATCH" }
-      );
-      if (response.ok) {
-        alert("Reserva no monetaria confirmada con éxito.");
-        fetchReservas(selectedDate); // Refrescar la lista
-        fetchCierreCaja(selectedDate); // Actualizar datos
-      } else {
-        alert("Error al confirmar la reserva.");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Ocurrió un error al intentar confirmar la reserva.");
-    }
+      const r = await fetch(`https://albo-barber.onrender.com/gastos/por-fecha?fecha=${fecha}`);
+      if (!r.ok) throw new Error();
+      setListaGastos(await r.json());
+    } catch { console.error("Error al cargar gastos."); }
   };
 
-  const eliminarReserva = async (reservaId) => {
-    try {
-      const response = await fetch(`https://albo-barber.onrender.com/reservas/${reservaId}`, {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        throw new Error("Error al eliminar la reserva");
-      }
-      // Actualizar la lista de reservas eliminando la reserva cancelada
-      setReservas((prevReservas) =>
-        prevReservas.filter((reserva) => reserva.id !== reservaId)
-      );
-      alert("Reserva eliminar con éxito");
-    } catch (err) {
-      alert(`Error al eliminar la reserva: ${err.message}`);
-      console.log(reservaId);
-    }
-  };
-
-  const fetchGastosDelDia = async (fechaSeleccionada) => {
-    try {
-      const response = await fetch(
-        `https://albo-barber.onrender.com/gastos/por-fecha?fecha=${fechaSeleccionada}`
-      );
-      if (!response.ok) {
-        throw new Error("Error al obtener los gastos del día");
-      }
-      const data = await response.json();
-      setListaGastos(data);
-    } catch (err) {
-      console.error(err);
-      setError("Error al cargar los gastos del día.");
-    }
-  };
-
-
-
-  useEffect(() => {
-    fetchReservas(selectedDate);
-    fetchCierreCaja(selectedDate);
-    fetchGastosDelDia(selectedDate);
-  }, [selectedDate]);
-
-  const handleHoy = () => {
-    const hoy = new Date().toISOString().split("T")[0];
-    setSelectedDate(hoy);
-  };
-
-  const handleManana = () => {
-    const manana = new Date();
-    manana.setDate(manana.getDate() + 1);
-    setSelectedDate(manana.toISOString().split("T")[0]);
-  };
-
-  const handleSeleccionarDia = (e) => {
-    setSelectedDate(e.target.value);
-  };
+  useEffect(() => { fetchReservas(selectedDate); fetchCierreCaja(selectedDate); fetchGastos(selectedDate); }, [selectedDate]);
 
   if (loading) return <Cargando />;
 
+  const SectionTitle = ({ children }) => (
+    <h3 className="font-oswald font-semibold text-sm tracking-widest uppercase text-white/40 mb-3 flex items-center gap-3">
+      <span className="h-px flex-1 bg-white/[0.06]" />
+      <span>{children}</span>
+      <span className="h-px flex-1 bg-white/[0.06]" />
+    </h3>
+  );
+
   return (
-    <div className="ver-reservas-container">
-      <div className="botones-container">
-        <button className="button-rounded" onClick={handleHoy}>Hoy</button>
-        <button className="button-rounded" onClick={handleManana}>Mañana</button>
+    <div className="min-h-screen bg-[#0a0a0a]">
+      <div className="max-w-2xl mx-auto px-4 py-6">
+
+      {/* Navegación de fechas */}
+      <div className="flex flex-wrap items-center gap-2 mb-5">
+        <button
+          className="font-oswald tracking-widest uppercase text-xs font-medium px-4 py-2.5 border border-white/10 text-white/50 hover:border-white/20 hover:text-white transition-all duration-200 rounded-xl"
+          onClick={() => setSelectedDate(new Date().toISOString().split("T")[0])}>
+          Hoy
+        </button>
+        <button
+          className="font-oswald tracking-widest uppercase text-xs font-medium px-4 py-2.5 border border-white/10 text-white/50 hover:border-white/20 hover:text-white transition-all duration-200 rounded-xl"
+          onClick={() => { const d = new Date(); d.setDate(d.getDate() + 1); setSelectedDate(d.toISOString().split("T")[0]); }}>
+          Mañana
+        </button>
         <input
+          aria-label="Seleccionar fecha"
           type="date"
           value={selectedDate}
-          onChange={handleSeleccionarDia}
+          onChange={(e) => setSelectedDate(e.target.value)}
           onClick={(e) => e.target.showPicker()}
-          className="fecha-selector"
+          className="bg-[#1c1c1c] border border-white/[0.08] text-white font-lato text-sm px-3 py-2.5 rounded-xl focus:outline-none focus:border-white/30 cursor-pointer"
         />
         <VolverButton fallback="/adminReservas" />
       </div>
 
-      <h2 className="bungee-inline-regular">{selectedDate}</h2>
-      <div className="reservas-list">
-        {reservas.length === 0 ? (
-          <p>No hay reservas para esta fecha.</p>
-        ) : (
-          reservas.map((reserva) => (
-            <div key={reserva.id} className="reserva-item">
-              <p className="abel-regular"><FontAwesomeIcon icon={faClock} /> <strong>{reserva.horarioSeleccionado.split(":").slice(0, 2).join(":")}</strong> </p>
-              <p className="abel-regular">
-                <FontAwesomeIcon icon={faUser} />{" "}
-                {(reserva.usuario) ? `${reserva.usuario.nombre} ${reserva.usuario.apellido}` : reserva.nombreCliente}
-              </p>
-              <p className="abel-regular"><FontAwesomeIcon icon={faMobile} /> <p>{reserva.usuario ? reserva.usuario.telefono : reserva.telefonoCliente}</p> </p>
-              <p className="abel-regular"><FontAwesomeIcon icon={faScissors} /> {reserva.tipoDeCorte.nombre} ${reserva.tipoDeCorte.precio}</p>
-              {!reserva.estado && (
-                <button className="botonZ boton-verde" onClick={() => confirmarReserva(reserva.id)}>
-                  <FontAwesomeIcon icon={faCheck} />
-                </button>
-              )}
-              {!reserva.estado && (
-                <button className="botonZ boton-naranja" onClick={() => confirmarReservaNoMonetaria(reserva.id)}>
-                  <FontAwesomeIcon icon={faCreditCard} />
-                </button>
-              )}
-              {!reserva.estado ? (
-                <button className="botonZ boton-rojo" onClick={() => eliminarReserva(reserva.id)}>
-                  <FontAwesomeIcon icon={faTrash} />
-                </button>
-              ) : ""}
+      {/* Fecha seleccionada */}
+      <h2 className="font-oswald font-semibold text-2xl text-white tracking-widest uppercase mb-1">{selectedDate}</h2>
+      {error && <p className="font-lato text-red-300 text-xs mb-3">{error}</p>}
 
+      {/* Lista de reservas */}
+      <div className="space-y-2 mb-6">
+        {reservas.length === 0 ? (
+          <p className="font-lato text-white/30 text-sm text-center py-8 border border-white/[0.04] rounded-xl bg-[#141414]">
+            No hay reservas para esta fecha.
+          </p>
+        ) : reservas.map((reserva) => (
+          <div key={reserva.id}
+            className={`bg-[#141414] border-l-2 ${reserva.estado ? "border-l-green-600" : "border-l-white/20"} border-y border-r border-white/[0.05] rounded-r-xl shadow-card`}>
+            <div className="flex items-start justify-between gap-3 p-4">
+              <div className="space-y-1.5 flex-1 min-w-0">
+                <p className="font-oswald text-white text-base font-semibold">
+                  <FontAwesomeIcon icon={faClock} className="text-white/40 mr-2 text-sm" />
+                  {reserva.horarioSeleccionado.split(":").slice(0, 2).join(":")}
+                  {reserva.estado && <span className="ml-2 text-xs text-green-400 font-lato font-normal">confirmada</span>}
+                </p>
+                <p className="font-lato text-white/80 text-sm truncate">
+                  <FontAwesomeIcon icon={faUser} className="text-white/30 mr-1.5 text-xs" />
+                  {reserva.usuario ? `${reserva.usuario.nombre} ${reserva.usuario.apellido}` : reserva.nombreCliente}
+                </p>
+                <p className="font-lato text-white/40 text-xs">
+                  <FontAwesomeIcon icon={faMobile} className="mr-1.5" />
+                  {reserva.usuario ? reserva.usuario.telefono : reserva.telefonoCliente || "—"}
+                </p>
+                <p className="font-lato text-white/70 text-sm">
+                  <FontAwesomeIcon icon={faScissors} className="text-white/30 mr-1.5 text-xs" />
+                  {reserva.tipoDeCorte.nombre}{" "}
+                  <span className="text-white font-semibold">${reserva.tipoDeCorte.precio}</span>
+                </p>
+              </div>
+
+              {!reserva.estado && (
+                <div className="flex flex-col gap-1.5 flex-shrink-0">
+                  <button onClick={() => confirmarReserva(reserva.id)}
+                    className="w-9 h-9 bg-green-900/40 text-green-400 border border-green-700/50 hover:bg-green-700 hover:text-white transition-all text-sm flex items-center justify-center rounded-lg">
+                    <FontAwesomeIcon icon={faCheck} />
+                  </button>
+                  <button onClick={() => confirmarNoMonetaria(reserva.id)}
+                    className="w-9 h-9 bg-yellow-900/40 text-yellow-400 border border-yellow-700/50 hover:bg-yellow-700 hover:text-white transition-all text-sm flex items-center justify-center rounded-lg">
+                    <FontAwesomeIcon icon={faCreditCard} />
+                  </button>
+                  <button onClick={() => eliminarReserva(reserva.id)}
+                    className="w-9 h-9 bg-red-900/40 text-red-400 border border-red-800/50 hover:bg-red-700 hover:text-white transition-all text-sm flex items-center justify-center rounded-lg">
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                </div>
+              )}
             </div>
-          ))
-        )}
-        <div className="horarios-disponibles">
-          {horariosDisponibles.map((hora, index) => (
-            <button
-              key={index}
-              className="horario-boton"
-              onClick={() => navigate('/reservaAnonima', { state: { selectedDate, hora } })}
-            >
+          </div>
+        ))}
+      </div>
+
+      {/* Horarios disponibles */}
+      <div className="mb-6">
+        <SectionTitle>Horarios libres</SectionTitle>
+        <div className="flex flex-wrap gap-2 mb-3">
+          {horariosDisponibles.map((hora, i) => (
+            <button key={i} onClick={() => navigate('/reservaAnonima', { state: { selectedDate, hora } })}
+              className="font-oswald text-xs font-medium tracking-widest uppercase px-3 py-2 bg-[#141414] border border-white/10 text-white/60 hover:bg-white hover:text-black hover:border-white transition-all duration-200 rounded-lg">
               {hora.split(":").slice(0, 2).join(":")}
             </button>
           ))}
+          {horariosDisponibles.length === 0 && (
+            <p className="font-lato text-white/30 text-xs">No hay horarios disponibles.</p>
+          )}
         </div>
-
-        <div>
-          <button
-            className="boton-horarios"
-            onClick={copiarHorarios}
-            disabled={horariosDisponibles.length === 0}
-          >
-            <FontAwesomeIcon icon={faCopy} />
-          </button>
-        </div>
-
+        <button onClick={copiarHorarios} disabled={horariosDisponibles.length === 0}
+          className="font-oswald text-xs tracking-widest uppercase px-4 py-2.5 bg-[#141414] border border-white/[0.08] text-white/40 hover:text-white hover:border-white/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all rounded-xl">
+          <FontAwesomeIcon icon={faCopy} className="mr-2" /> Copiar horarios
+        </button>
       </div>
 
-      <div className="cierre-caja-container">
-        <h3 className="bungee-inline-regular">Cierre de Caja</h3>
-        <p className="bungee-inline-regular">Total Facturado: ${facturacion}</p>
-        <p className="bungee-inline-regular">No monetario: ${noMonetario}</p>
-        <p className="bungee-inline-regular">Total Gastos: ${gastos}</p>
-        <p className="bungee-inline-regular">Cierre de Caja: ${cierreCaja}</p>
+      {/* Cierre de Caja */}
+      <div className="mb-6">
+        <SectionTitle>Cierre de Caja</SectionTitle>
+        <div className="grid grid-cols-2 gap-2 mb-4">
+          {[
+            { label: "Facturado", value: facturacion, color: "text-green-400" },
+            { label: "No monetario", value: noMonetario, color: "text-yellow-400" },
+            { label: "Gastos", value: gastos, color: "text-red-400" },
+            { label: "Cierre", value: cierreCaja, color: "text-white" },
+          ].map(({ label, value, color }) => (
+            <div key={label} className="bg-[#141414] border border-white/[0.05] p-3 rounded-xl">
+              <p className="font-oswald text-[10px] text-white/40 tracking-widest uppercase">{label}</p>
+              <p className={`font-oswald font-semibold text-xl ${color}`}>${value}</p>
+            </div>
+          ))}
+        </div>
 
-        <div className="nuevo-gasto-form">
-          <h4 className="bungee-inline-regular">Agregar Gasto</h4>
-          <input
-            type="text"
-            placeholder="Descripción"
-            value={nuevoGasto.descripcion}
-            onChange={(e) =>
-              setNuevoGasto({ ...nuevoGasto, descripcion: e.target.value })
-            }
-          />
-          <input
-            type="number"
-            placeholder="Monto"
-            value={nuevoGasto.monto}
-            onChange={(e) =>
-              setNuevoGasto({ ...nuevoGasto, monto: e.target.value })
-            }
-          />
-          <button onClick={agregarGasto}>Agregar Gasto</button>
+        <div className="bg-[#141414] border border-white/[0.05] p-4 rounded-xl">
+          <p className="font-oswald text-xs text-white/40 tracking-widest uppercase mb-3">Agregar Gasto</p>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <input aria-label="Descripción del gasto" type="text" placeholder="Descripción" value={nuevoGasto.descripcion}
+              onChange={(e) => setNuevoGasto({ ...nuevoGasto, descripcion: e.target.value })}
+              className="input-field flex-1" />
+            <input aria-label="Monto del gasto" type="number" placeholder="Monto" value={nuevoGasto.monto}
+              onChange={(e) => setNuevoGasto({ ...nuevoGasto, monto: e.target.value })}
+              className="input-field w-full sm:w-28" />
+            <button onClick={agregarGasto} className="btn-primary whitespace-nowrap sm:w-auto py-3">Agregar</button>
+          </div>
         </div>
       </div>
-      <div className="gastos-container">
-        <h3 className="bungee-inline-regular">Gastos del día</h3>
+
+      {/* Gastos del día */}
+      <div>
+        <SectionTitle>Gastos del día</SectionTitle>
         {listaGastos.length === 0 ? (
-          <p className="bungee-inline-regular">No hay gastos registrados para este día.</p>
+          <p className="font-lato text-white/30 text-xs">Sin gastos registrados.</p>
         ) : (
-          <ul>
-            {listaGastos.map((gasto) => (
-              <li key={gasto.id}>
-                <p className="bungee-inline-regular">{gasto.descripcion} ${gasto.monto.toFixed(2)}</p>
-              </li>
+          <div className="space-y-1">
+            {listaGastos.map((g) => (
+              <div key={g.id} className="flex justify-between items-center bg-[#141414] border border-white/[0.04] px-4 py-2.5 rounded-xl">
+                <span className="font-lato text-white/70 text-sm">{g.descripcion}</span>
+                <span className="font-oswald text-red-400 font-semibold text-sm">${g.monto.toFixed(2)}</span>
+              </div>
             ))}
-          </ul>
+          </div>
         )}
       </div>
-
+    </div>
     </div>
   );
 };
 
 export default VerReservas;
-
