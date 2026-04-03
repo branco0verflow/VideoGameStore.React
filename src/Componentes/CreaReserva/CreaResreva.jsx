@@ -2,9 +2,6 @@ import { useState, useEffect } from "react";
 import { useUsuario } from "../UsuarioContext/UsuarioContext";
 import { useNavigate } from "react-router-dom";
 import imgLogo from '../../Images/logo.png';
-import imag1 from '../../Images/Albo1.jpg';
-import imag2 from '../../Images/Albo2.jpg';
-import imag3 from '../../Images/Albo3.jpg';
 import Cargando from "../Cargando/Cargando";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -27,10 +24,7 @@ const FormularioReserva = () => {
   const [cortesiaActiva, setCortesiaActiva] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loadingHorarios, setLoadingHorarios] = useState(false);
-  const [imgIdx, setImgIdx] = useState(0);
   const [error, setError] = useState("");
-
-  const bgImages = [imag1, imag2, imag3];
 
   useEffect(() => { fetch("https://albo-barber.onrender.com/api/cortesias").then(r=>r.json()).then(setCortesias).catch(console.error); }, []);
   useEffect(() => { if (socios.length > 0) setSocioSeleccionado(socios[0].id); }, [socios]);
@@ -46,11 +40,6 @@ const FormularioReserva = () => {
       .then(r=>r.json()).then(setHorarios).catch(()=>setError("Error al cargar horarios"))
       .finally(()=>setLoadingHorarios(false));
   }, [socioSeleccionado, fechaSeleccionada]);
-
-  useEffect(() => {
-    const t = setInterval(() => setImgIdx(i => (i + 1) % bgImages.length), 6000);
-    return () => clearInterval(t);
-  }, [bgImages.length]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -88,18 +77,8 @@ const FormularioReserva = () => {
 
   return (
     <div className="min-h-screen flex">
-      {/* Panel izquierdo — imagen de fondo */}
-      <div className="hidden md:block md:w-2/5 lg:w-1/2 relative overflow-hidden flex-shrink-0">
-        <div className="absolute inset-0 bg-cover bg-center transition-all duration-1000 brightness-[0.4] scale-105"
-          style={{ backgroundImage: `url(${bgImages[imgIdx]})` }} />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#0a0a0a]" />
-        <div className="absolute bottom-10 left-10">
-          <p className="font-oswald text-white/20 text-xs tracking-widest uppercase">Albo Barbería</p>
-        </div>
-      </div>
-
-      {/* Panel derecho — formulario */}
-      <div className="w-full md:w-3/5 lg:w-1/2 bg-[#0a0a0a] flex items-start justify-center px-5 py-8 overflow-y-auto">
+      {/* Formulario centrado */}
+      <div className="w-full bg-[#0a0a0a] flex items-start justify-center px-5 py-8 overflow-y-auto">
         <div className="w-full max-w-[400px]">
 
           {/* Logo + pasos */}

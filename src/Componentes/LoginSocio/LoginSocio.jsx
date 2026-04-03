@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSocio } from "../../Componentes/socioContext/socioContext";
 import imgLogo from '../../Images/logo.png';
-import imag1 from '../../Images/Albo1.jpg';
-import imag2 from '../../Images/Albo2.jpg';
-import imag3 from '../../Images/Albo3.jpg';
+import video1 from '../../video/video1.mp4';
+import { FaInstagram } from 'react-icons/fa';
 
 const LoginSocio = () => {
   const { setSocio } = useSocio();
@@ -12,9 +11,6 @@ const LoginSocio = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const [imgIdx, setImgIdx] = useState(0);
-
-  const images = [imag1, imag2, imag3];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,26 +22,9 @@ const LoginSocio = () => {
     } catch { setError("Error al conectar con el servidor"); }
   };
 
-  useEffect(() => {
-    const t = setInterval(() => setImgIdx((i) => (i + 1) % images.length), 6000);
-    return () => clearInterval(t);
-  }, [images.length]);
-
   return (
     <div className="min-h-screen flex">
-      {/* Panel izquierdo */}
-      <div className="hidden md:block md:w-1/2 relative overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center transition-all duration-1000 brightness-[0.45] scale-105"
-          style={{ backgroundImage: `url(${images[imgIdx]})` }} />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#0a0a0a]" />
-        <div className="absolute bottom-10 left-10">
-          <p className="font-oswald text-white/20 text-xs tracking-widest uppercase">
-            Albo Barbería · Panel Barberos
-          </p>
-        </div>
-      </div>
-
-      {/* Panel derecho */}
+      {/* Panel izquierdo — formulario */}
       <div className="w-full md:w-1/2 bg-[#0a0a0a] flex items-center justify-center px-6 py-12">
         <div className="w-full max-w-[340px]">
           <div className="mb-10">
@@ -88,6 +67,36 @@ const LoginSocio = () => {
               ¿Sin cuenta? Regístrate →
             </button>
           </div>
+        </div>
+      </div>
+
+      {/* Panel derecho — video */}
+      <div className="md:block md:w-1/2 relative">
+        <video
+          src={video1}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover scale-105 brightness-[0.45]"
+        />
+
+        {/* Horarios e Instagram */}
+        <div className="absolute bottom-10 left-10 right-10 flex items-end justify-between">
+          <div>
+            <p className="font-oswald text-white/50 text-[11px] tracking-widest uppercase mb-1">Horarios</p>
+            <p className="font-lato text-white/80 text-sm">Mar — Sáb</p>
+            <p className="font-lato text-white/80 text-sm">10:00 — 20:00</p>
+          </div>
+          <a
+            href="https://www.instagram.com/albobarberia/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white/40 hover:text-white transition-colors"
+            aria-label="Instagram de Albo Barbería"
+          >
+            <FaInstagram size={22} />
+          </a>
         </div>
       </div>
     </div>
