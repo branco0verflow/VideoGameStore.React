@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useUsuario } from "../UsuarioContext/UsuarioContext";
 import VolverButton from "../VolverButton/VolverButton";
 import Cargando from "../Cargando/Cargando";
@@ -10,6 +10,7 @@ const MisReservas = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const obtenerReservas = async () => {
@@ -34,6 +35,11 @@ const MisReservas = () => {
         obtenerReservas();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [usuario]);
+
+    useEffect(() => {
+        if (!loading && location.state?.scrollToBottom)
+            window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }, [loading, location.state]);
 
     const cancelarReserva = async (reservaId) => {
         try {

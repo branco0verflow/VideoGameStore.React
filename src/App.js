@@ -15,10 +15,12 @@ import CreaReservaSocio from "./Componentes/CreaReservaSocio/CreaReservaSocio";
 import CreaReservaAnonima from "./Componentes/ReservaAnonimaSocio/ReservaAnonimaSocio";
 import Cargando from "./Componentes/Cargando/Cargando";
 import CierresCaja from "./Componentes/CierreCajaEntreFechas/CierreCajaEntreFechas";
+import ScrollToTop from "./Componentes/ScrollToTop/ScrollToTop";
 
 function App() {
   return (
-    <Router> {/* Envolver las rutas con Router */}
+    <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/reservar" element={<CreaReserva />} />

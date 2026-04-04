@@ -13,6 +13,7 @@ const FormularioReserva = () => {
 
   const [socios, setSocios] = useState([]);
   const [paso, setPaso] = useState(1);
+  const [confirmado, setConfirmado] = useState(false);
   const [cortesias, setCortesias] = useState([]);
   const [horarios, setHorarios] = useState([]);
   const [socioSeleccionado, setSocioSeleccionado] = useState(null);
@@ -41,6 +42,8 @@ const FormularioReserva = () => {
       .finally(()=>setLoadingHorarios(false));
   }, [socioSeleccionado, fechaSeleccionada]);
 
+  useEffect(() => { window.scrollTo(0, 0); }, [paso]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!socioSeleccionado || !fechaSeleccionada || !horarioSeleccionado) { setError("Complete todos los campos"); return; }
@@ -50,7 +53,10 @@ const FormularioReserva = () => {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ fechaSeleccionada, horarioSeleccionado, tipoDeCorte: { id: tipoDeCorteSeleccionado }, usuario, estado: false, noMonetario: false, cortesia: { id: cortesiaActiva ? cortesiaSeleccionada : 1 }, socio: { id: socioSeleccionado } }),
       });
-      if (r.ok) { alert("Reserva confirmada"); setSocioSeleccionado(null); setFechaSeleccionada(""); setHorarioSeleccionado(""); setHorarios([]); setError(""); }
+      if (r.ok) {
+        setConfirmado(true);
+        setTimeout(() => navigate("/reservasCreadas", { state: { scrollToBottom: true } }), 1500);
+      }
       else setError("Error al confirmar la reserva");
     } catch { setError("Error al enviar la solicitud"); }
   };
@@ -72,6 +78,19 @@ const FormularioReserva = () => {
           {lbl}
         </button>
       ))}
+    </div>
+  );
+
+  if (confirmado) return (
+    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-16 h-16 rounded-full bg-green-900/40 border border-green-700/50 flex items-center justify-center">
+          <svg className="w-8 h-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <p className="font-oswald text-white text-2xl tracking-widest uppercase">Listo</p>
+      </div>
     </div>
   );
 
