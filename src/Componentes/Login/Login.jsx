@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUsuario } from "../../Componentes/UsuarioContext/UsuarioContext";
 import imgLogo from '../../Images/logo.png';
+import imgBrander from '../../Images/brander.png';
 import video1 from '../../video/video1.mp4';
 import { FaInstagram } from 'react-icons/fa';
 
@@ -76,6 +77,13 @@ const Login = () => {
               ¿Sin cuenta? Regístrate <span className="text-white/60">→</span>
             </button>
           </div>
+
+          {/* Brander */}
+          <a href="https://www.brandercloud.com" target="_blank" rel="noopener noreferrer"
+            className="mt-10 flex items-center justify-end gap-2 opacity-30 hover:opacity-60 transition-opacity">
+            <span className="font-lato text-white text-[10px] tracking-widest uppercase">Creado por</span>
+            <img src={imgBrander} alt="Brander" className="h-12 w-auto" />
+          </a>
         </div>
       </div>
 

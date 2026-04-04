@@ -155,23 +155,23 @@ const VerReservas = () => {
         ) : reservas.map((reserva) => (
           <div key={reserva.id}
             className={`bg-[#141414] border-l-2 ${reserva.estado ? "border-l-green-600" : "border-l-white/20"} border-y border-r border-white/[0.05] rounded-r-xl shadow-card`}>
-            <div className="flex items-start justify-between gap-3 p-4">
-              <div className="space-y-1.5 flex-1 min-w-0">
-                <p className="font-oswald text-white text-base font-semibold">
-                  <FontAwesomeIcon icon={faClock} className="text-white/40 mr-2 text-sm" />
+            <div className="flex items-center justify-between gap-3 px-4 py-2.5">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 flex-1 min-w-0">
+                <p className="font-oswald text-white text-sm font-semibold">
+                  <FontAwesomeIcon icon={faClock} className="text-white/40 mr-1.5 text-xs" />
                   {reserva.horarioSeleccionado.split(":").slice(0, 2).join(":")}
-                  {reserva.estado && <span className="ml-2 text-xs text-green-400 font-lato font-normal">confirmada</span>}
+                  {reserva.estado && <span className="ml-1.5 text-xs text-green-400 font-lato font-normal">✓</span>}
                 </p>
-                <p className="font-lato text-white/80 text-sm truncate">
-                  <FontAwesomeIcon icon={faUser} className="text-white/30 mr-1.5 text-xs" />
+                <p className="font-lato text-white/80 text-xs truncate">
+                  <FontAwesomeIcon icon={faUser} className="text-white/30 mr-1.5" />
                   {reserva.usuario ? `${reserva.usuario.nombre} ${reserva.usuario.apellido}` : reserva.nombreCliente}
                 </p>
                 <p className="font-lato text-white/40 text-xs">
                   <FontAwesomeIcon icon={faMobile} className="mr-1.5" />
                   {reserva.usuario ? reserva.usuario.telefono : reserva.telefonoCliente || "—"}
                 </p>
-                <p className="font-lato text-white/70 text-sm">
-                  <FontAwesomeIcon icon={faScissors} className="text-white/30 mr-1.5 text-xs" />
+                <p className="font-lato text-white/70 text-xs truncate">
+                  <FontAwesomeIcon icon={faScissors} className="text-white/30 mr-1.5" />
                   {reserva.tipoDeCorte.nombre}{" "}
                   <span className="text-white font-semibold">${reserva.tipoDeCorte.precio}</span>
                 </p>
