@@ -37,9 +37,11 @@ const MisReservas = () => {
     }, [usuario]);
 
     useEffect(() => {
-        if (!loading && location.state?.scrollToBottom)
+        if (!loading && location.state?.scrollToBottom) {
             window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-    }, [loading, location.state]);
+            navigate(location.pathname, { replace: true, state: {} });
+        }
+    }, [loading, location.state]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const cancelarReserva = async (reservaId) => {
         try {

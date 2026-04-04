@@ -71,7 +71,7 @@ const LoginSocio = () => {
 
           {/* Brander */}
           <a href="https://www.brandercloud.com" target="_blank" rel="noopener noreferrer"
-            className="mt-10 flex items-center justify-end gap-2 opacity-30 hover:opacity-60 transition-opacity">
+            className="mt-10 flex items-center justify-end gap-2 opacity-30 hover:opacity-60 transition-opacity no-underline">
             <span className="font-lato text-white text-[10px] tracking-widest uppercase">Creado por</span>
             <img src={imgBrander} alt="Brander" className="h-12 w-auto" />
           </a>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useUsuario } from "../UsuarioContext/UsuarioContext";
 import { useNavigate } from "react-router-dom";
 import imgLogo from '../../Images/logo.png';
+import imgBrander from '../../Images/brander.png';
 import Cargando from "../Cargando/Cargando";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -256,6 +257,16 @@ const FormularioReserva = () => {
               <BottomNav />
             </div>
           )}
+
+          {/* Footer brander */}
+          <div className="mt-12 pt-6 border-t border-white/[0.04]">
+            <a href="https://www.brandercloud.com" target="_blank" rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2.5 no-underline">
+              <span className="font-lato text-white text-[10px] tracking-widest uppercase">Creado por</span>
+              <img src={imgBrander} alt="Brander" className="h-12 w-auto" />
+            </a>
+          </div>
+
         </div>
       </div>
     </div>
