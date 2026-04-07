@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSocio } from "../../Componentes/socioContext/socioContext";
 import imgLogo from '../../Images/logo.png';
 import imgBrander from '../../Images/brander.png';
-import video1 from '../../video/video1.mp4';
+import posterImg from '../../Images/Albo1.jpg';
 import { FaInstagram } from 'react-icons/fa';
 
 const LoginSocio = () => {
@@ -81,11 +81,12 @@ const LoginSocio = () => {
       {/* Panel derecho — video */}
       <div className="md:block md:w-1/2 relative">
         <video
-          src={video1}
+          src="/video1.mp4"
           autoPlay
           loop
           muted
           playsInline
+          poster={posterImg}
           className="absolute inset-0 w-full h-full object-cover scale-105 brightness-[0.45]"
         />
 
