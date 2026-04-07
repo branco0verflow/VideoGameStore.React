@@ -198,24 +198,7 @@ const FormularioReserva = () => {
                   </select>
                 </div>
 
-                <div className="bg-[#141414] rounded-xl border border-white/[0.06] px-4 py-3 flex items-center justify-between">
-                  <span className="font-lato text-white/50 text-sm">Aplicar cortesía</span>
-                  <label className="switch" aria-label="Activar cortesía">
-                    <input type="checkbox" aria-label="Activar cortesía" checked={cortesiaActiva} onChange={(e) => setCortesiaActiva(e.target.checked)} />
-                    <span className="slider"></span>
-                  </label>
-                </div>
-
-                {cortesiaActiva && (
-                  <div>
-                    <label className="field-label" htmlFor="cortesia">Cortesía</label>
-                    <select id="cortesia" className="input-field cursor-pointer" value={cortesiaSeleccionada || ""}
-                      onChange={(e) => setCortesiaSeleccionada(e.target.value)}>
-                      <option value="">Selecciona una cortesía</option>
-                      {cortesias.map((c) => <option key={c.id} value={c.id}>{c.nombre}</option>)}
-                    </select>
-                  </div>
-                )}
+                
               </div>
 
               <div className="flex gap-3">

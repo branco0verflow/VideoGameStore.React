@@ -157,7 +157,7 @@ const CierresCaja = () => {
       {/* 📭 Mensaje si no hay datos */}
       {!loading && cierres.length === 0 && !error && (
         <div className="alert alert-info text-center">
-          No hay registros en este rango de fechas (Evita introducir fechas con mas de 31 días).
+          No hay registros en este rango de fechas.
         </div>
       )}
     </div>
