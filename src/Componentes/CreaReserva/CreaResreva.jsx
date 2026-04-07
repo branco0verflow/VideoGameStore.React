@@ -15,20 +15,16 @@ const FormularioReserva = () => {
   const [socios, setSocios] = useState([]);
   const [paso, setPaso] = useState(1);
   const [confirmado, setConfirmado] = useState(false);
-  const [cortesias, setCortesias] = useState([]);
   const [horarios, setHorarios] = useState([]);
   const [socioSeleccionado, setSocioSeleccionado] = useState(null);
   const [fechaSeleccionada, setFechaSeleccionada] = useState("");
   const [horarioSeleccionado, setHorarioSeleccionado] = useState("");
   const [tipoDeCorte, setTipoDeCorte] = useState([]);
   const [tipoDeCorteSeleccionado, setTipoDeCorteSeleccionado] = useState(null);
-  const [cortesiaSeleccionada, setCortesiaSeleccionada] = useState(null);
-  const [cortesiaActiva, setCortesiaActiva] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loadingHorarios, setLoadingHorarios] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => { fetch("https://albo-barber.onrender.com/api/cortesias").then(r=>r.json()).then(setCortesias).catch(console.error); }, []);
   useEffect(() => { if (socios.length > 0) setSocioSeleccionado(socios[0].id); }, [socios]);
   useEffect(() => { fetch("https://albo-barber.onrender.com/tipos-de-corte").then(r=>r.json()).then(setTipoDeCorte).catch(()=>setError("Error al cargar tipos de corte")); }, []);
   useEffect(() => { fetch("https://albo-barber.onrender.com/api/socios").then(r=>r.json()).then(setSocios).catch(()=>{setError("Error al cargar socios");setLoading(false);}); }, []);
@@ -52,7 +48,7 @@ const FormularioReserva = () => {
     try {
       const r = await fetch("https://albo-barber.onrender.com/reservas", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fechaSeleccionada, horarioSeleccionado, tipoDeCorte: { id: tipoDeCorteSeleccionado }, usuario, estado: false, noMonetario: false, cortesia: { id: cortesiaActiva ? cortesiaSeleccionada : 1 }, socio: { id: socioSeleccionado } }),
+        body: JSON.stringify({ fechaSeleccionada, horarioSeleccionado, tipoDeCorte: { id: tipoDeCorteSeleccionado }, usuario, estado: false, noMonetario: false, cortesia: { id: 1 }, socio: { id: socioSeleccionado } }),
       });
       if (r.ok) {
         setConfirmado(true);
